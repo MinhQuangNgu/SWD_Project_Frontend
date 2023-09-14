@@ -1,8 +1,14 @@
 import React from 'react'
+import Header from './Header'
+import Footer from './Footer'
 
 const Publiclayout = ({children}) => {
   return (
-    <div>{children}</div>
+    <div>
+      <Header />
+      {children}
+      <Footer />
+      </div>
   )
 }
 
