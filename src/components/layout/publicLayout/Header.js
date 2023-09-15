@@ -42,10 +42,10 @@ const Header = () => {
                     <i className="fa-regular fa-heart"></i>
                   </Link>
                   {wasLogin ? 
-                  <Link style={{ textDecoration: "none", color: "black",padding:"0 10px",borderRadius:"20px",paddingTop:"2.5px" }} className=" bg-white ms-3" to=''>
+                  <Link style={{ textDecoration: "none", color: "black",padding:"0 10px",borderRadius:"20px",paddingTop:"2.5px" }} className=" bg-white ms-3" to='/login'>
                     <small className="text-body">Đăng nhập</small>
                   </Link>:
-                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to=''>
+                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to='/'>
                     <small className="fa fa-user text-body"></small>
                   </Link>
                   }
