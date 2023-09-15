@@ -2,7 +2,7 @@ import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import Home from "../components/home/Home";
 import Publiclayout from "../components/layout/publicLayout/Publiclayout";
-
+import Profile from "../components/profile/Profile";
 
 export const publicRouter = [
 	{
@@ -17,6 +17,11 @@ export const publicRouter = [
 	{
 		element: Register,
 		path: "/register",
+	},
+	{
+		element: Profile,
+		path: "/:slug/profile",
+		layout: Publiclayout,
 	}
 ];
 export const adminRouter = [

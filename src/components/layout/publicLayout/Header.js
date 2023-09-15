@@ -20,9 +20,9 @@ const Header = () => {
         </div>
 
         <nav  className="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" className="navbar-brand ms-4 ms-lg-0">
+            <Link to="/" className="navbar-brand ms-4 ms-lg-0">
                 <h1 className="fw-bold text-primary m-0">C<span className="text-secondary">oo</span>ky</h1>
-            </a>
+            </Link>
             <button type="button" className="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -32,13 +32,13 @@ const Header = () => {
                     <Link className="nav-item nav-link d-lg-none">About Us</Link>
                 </div>
                 <div className="d-none d-lg-flex ms-2">
-                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to=''>
+                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to='/'>
                     <i className="fa-solid fa-house"></i>
                   </Link>
-                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to=''>
+                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to='/'>
                     <small className="fa fa-search text-body"></small>
                   </Link>
-                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to=''>
+                  <Link style={{textDecoration:"none",color:"black"}} className="btn-sm-square bg-white rounded-circle ms-3" to='/'>
                     <i className="fa-regular fa-heart"></i>
                   </Link>
                   {wasLogin ? 
