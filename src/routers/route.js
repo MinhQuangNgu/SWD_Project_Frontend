@@ -3,7 +3,7 @@ import Register from "../components/auth/Register";
 import Home from "../components/home/Home";
 import Publiclayout from "../components/layout/publicLayout/Publiclayout";
 import Profile from "../components/profile/Profile";
-
+import Recipe from "../components/detail/Recipe";
 export const publicRouter = [
 	{
 		element: Home,
@@ -22,6 +22,11 @@ export const publicRouter = [
 		element: Profile,
 		path: "/:slug/profile",
 		layout: Publiclayout,
+	}
+	,
+	{
+		element: Recipe,
+		path: "/recipe/:slug"
 	}
 ];
 export const adminRouter = [
