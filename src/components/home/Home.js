@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { Navigation, Pagination, Autoplay} from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import './style.scss'
 const Home = () => {
   return (
     <>
@@ -427,10 +429,76 @@ const Home = () => {
             <h1 style={{ fontWeight: "700" }} class="display-5 mb-3">Đầu bếp ưa thích</h1>
             <p>Những đầu bếp có số lượng theo dõi lớn nhất với cũng cống hiến vô cùng lớn của họ.</p>
           </div>
-          </div>
+          <Swiper
+            modules={[Navigation, Pagination,Autoplay]}
+            spaceBetween={10}
+            slidesPerView={3}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            loop
+            autoplay={{
+            delay: 1000,
+            disableOnInteraction: false,
+            }}
+          >
+            <SwiperSlide>
+              <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                <i style={{color:"#f65005"}} class="fa fa-quote-left fa-3x position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                <div class="d-flex align-items-center">
+                  <img style={{ width: "50px", height: "50px",objectFit:"cover" }} class="flex-shrink-0 rounded-circle" src="https://res.cloudinary.com/sttruyen/image/upload/v1694746217/another/rhadcgcifq2qjhhnsvob.jpg" alt="" />
+                  <div class="ms-3">
+                    <h5 class="mb-1">Client Name</h5>
+                    <span>Profession</span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                <i style={{color:"#f65005"}} class="fa fa-quote-left fa-3x position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                <div class="d-flex align-items-center">
+                  <img style={{ width: "50px", height: "50px",objectFit:"cover" }} class="flex-shrink-0 rounded-circle" src="https://res.cloudinary.com/sttruyen/image/upload/v1694746217/another/rhadcgcifq2qjhhnsvob.jpg" alt="" />
+                  <div class="ms-3">
+                    <h5 class="mb-1">Client Name</h5>
+                    <span>Profession</span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                <i style={{color:"#f65005"}} class="fa fa-quote-left fa-3x position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                <div class="d-flex align-items-center">
+                  <img style={{ width: "50px", height: "50px",objectFit:"cover" }} class="flex-shrink-0 rounded-circle" src="https://res.cloudinary.com/sttruyen/image/upload/v1694746217/another/rhadcgcifq2qjhhnsvob.jpg" alt="" />
+                  <div class="ms-3">
+                    <h5 class="mb-1">Client Name</h5>
+                    <span>Profession</span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                <i style={{color:"#f65005"}} class="fa fa-quote-left fa-3x position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                <div class="d-flex align-items-center">
+                  <img style={{ width: "50px", height: "50px",objectFit:"cover" }} class="flex-shrink-0 rounded-circle" src="https://res.cloudinary.com/sttruyen/image/upload/v1694746217/another/rhadcgcifq2qjhhnsvob.jpg" alt="" />
+                  <div class="ms-3">
+                    <h5 class="mb-1">Client Name</h5>
+                    <span>Profession</span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
-      </>
-      )
+      </div>
+    </>
+  )
 }
 
-      export default Home
+export default Home
