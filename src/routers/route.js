@@ -6,6 +6,7 @@ import Profile from "../components/profile/Profile";
 import Recipe from "../components/detail/Recipe";
 import Searching from "../components/search/Searching";
 import Admin from "../components/admin/Admin";
+import CreateRecipe from "../components/recipe/CreateRecipe";
 export const publicRouter = [
 	{
 		element: Home,
@@ -24,8 +25,11 @@ export const publicRouter = [
 		element: Profile,
 		path: "/:slug/profile",
 		layout: Publiclayout,
-	}
-	,
+	},
+	{
+		element: CreateRecipe,
+		path: "/recipe/create"
+	},
 	{
 		element: Recipe,
 		path: "/recipe/:slug",

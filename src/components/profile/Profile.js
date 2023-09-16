@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
-import { Link } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import OwnRecipeCard from '../card/OwnRecipeCard';
 import RecipeCard from '../card/RecipeCard';
 const Profile = () => {
     const [type, setType] = useState("");
     const [edit, setEdit] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -26,7 +28,9 @@ const Profile = () => {
                                         <button onClick={() => {
                                             setEdit(true);
                                         }} style={{ backgroundColor: "#93E2BB", border: "none" }} type="button" className="btn btn-primary">Sửa thông tin</button>
-                                        <button style={{ border: "none", marginLeft: "10px" }} type="button" className="btn btn-secondary">Thêm công thức</button>
+                                        <button onClick={() => {
+                                            navigate('/recipe/create');
+                                        }} style={{ border: "none", marginLeft: "10px" }} type="button" className="btn btn-secondary">Thêm công thức</button>
                                     </div> :
                                         <div className="d-flex justify-content-center mb-2">
                                             <button onClick={() => {
