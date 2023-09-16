@@ -60,13 +60,27 @@ const Home = () => {
           <div class="tab-content">
             <div class="tab-pane fade show p-0 active">
               <div class="row g-4">
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
                 <div class="col-12 text-center">
                   <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
                 </div>
@@ -87,14 +101,30 @@ const Home = () => {
           <div class="tab-content">
             <div class="tab-pane fade show p-0 active">
               <div class="row g-4">
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                  <RecipeCard />
+                </div>
                 <div class="col-12 text-center">
                   <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
                 </div>

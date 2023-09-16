@@ -4,6 +4,7 @@ import Home from "../components/home/Home";
 import Publiclayout from "../components/layout/publicLayout/Publiclayout";
 import Profile from "../components/profile/Profile";
 import Recipe from "../components/detail/Recipe";
+import Searching from "../components/search/Searching";
 export const publicRouter = [
 	{
 		element: Home,
@@ -27,6 +28,11 @@ export const publicRouter = [
 	{
 		element: Recipe,
 		path: "/recipe/:slug"
+	},
+	{
+		element: Searching,
+		path: "/search",
+		layout: Publiclayout,
 	}
 ];
 export const adminRouter = [
