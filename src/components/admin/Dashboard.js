@@ -56,24 +56,6 @@ const Dashboard = () => {
     };
     return (
         <>
-            <nav className="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <form className="d-none d-md-flex ms-4">
-                    <input className="form-control border-0" type="search" placeholder="Search" />
-                </form>
-                <div className="navbar-nav align-items-center ms-auto">
-                    <div className="nav-item dropdown">
-                        <div style={{cursor:"pointer"}} className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img className="rounded-circle me-lg-2" src="https://res.cloudinary.com/sttruyen/image/upload/v1694770081/another/kgxpacycwxq7aqeww2e8.gif" alt="" style={{ width: "40px", height: "40px" }} />
-                            <span className="d-none d-lg-inline-flex">John Doe</span>
-                        </div>
-                        <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <div style={{cursor:"pointer"}} className="drop_item">My Profile</div>
-                            <div style={{cursor:"pointer"}} className="drop_item">Settings</div>
-                            <div style={{cursor:"pointer"}} className="drop_item">Log Out</div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
 
             <div className="container-fluid pt-4 px-4">
                 <div className="row g-4">

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
-import {Link, useParams} from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
+import Accounts from './Accounts'
 
 
 const Admin = () => {
-  const {slug} = useParams();
-  const [type,setType] = useState('');
+  const { slug } = useParams();
+  const [type, setType] = useState('');
   useEffect(() => {
     setType(slug);
-  },[slug]);
-  
+  }, [slug]);
+
   return (
     <>
       <div className="position-relative bg-white d-flex p-0 container">
@@ -29,7 +30,7 @@ const Admin = () => {
                 <span>Admin</span>
               </div>
             </div>
-            <div style={{minHeight:"50vh"}} className="navbar-nav w-100">
+            <div style={{ minHeight: "50vh" }} className="navbar-nav w-100">
               <Link to="/admin/manager/dashboard" className={`nav-item nav-link ${type === 'dashboard' && 'active'}`}><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
               <Link to="/admin/manager/accounts" className={`nav-item nav-link ${type === 'accounts' && 'active'}`}><i className="fa fa-users"></i>Tài khoản</Link>
               <Link to="/admin/manager/recipes" className={`nav-item nav-link ${type === 'recipes' && 'active'}`}><i className="fa fa-keyboard me-2"></i>Công thức</Link>
@@ -37,7 +38,26 @@ const Admin = () => {
           </nav>
         </div>
         <div className="content">
-            <Dashboard />
+          <nav className="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <form className="d-none d-md-flex ms-4">
+              <input className="form-control border-0" type="search" placeholder="Search" />
+            </form>
+            <div className="navbar-nav align-items-center ms-auto">
+              <div className="nav-item dropdown">
+                <div style={{ cursor: "pointer" }} className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                  <img className="rounded-circle me-lg-2" src="https://res.cloudinary.com/sttruyen/image/upload/v1694770081/another/kgxpacycwxq7aqeww2e8.gif" alt="" style={{ width: "40px", height: "40px" }} />
+                  <span className="d-none d-lg-inline-flex">John Doe</span>
+                </div>
+                <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                  <div style={{ cursor: "pointer" }} className="drop_item">My Profile</div>
+                  <div style={{ cursor: "pointer" }} className="drop_item">Settings</div>
+                  <div style={{ cursor: "pointer" }} className="drop_item">Log Out</div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          {type === 'dashboard' && <Dashboard />}
+          {type === 'accounts' && <Accounts />}
         </div>
       </div>
       <div href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="fa fa-arrow-up"></i></div>
