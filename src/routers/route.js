@@ -5,6 +5,7 @@ import Publiclayout from "../components/layout/publicLayout/Publiclayout";
 import Profile from "../components/profile/Profile";
 import Recipe from "../components/detail/Recipe";
 import Searching from "../components/search/Searching";
+import Admin from "../components/admin/Admin";
 export const publicRouter = [
 	{
 		element: Home,
@@ -33,6 +34,10 @@ export const publicRouter = [
 		element: Searching,
 		path: "/search",
 		layout: Publiclayout,
+	},
+	{
+		element: Admin,
+		path: "/admin/manager"
 	}
 ];
 export const adminRouter = [
