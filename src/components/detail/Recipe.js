@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.scss'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 const Recipe = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[]);
     const [comment, setComment] = useState('');
     const [defaultStar, setDefaultStar] = useState(5);
     const [rating, setRating] = useState(0);
@@ -35,7 +39,6 @@ const Recipe = () => {
                 ></i>
             );
         }
-        console.log(starIcons)
         return starIcons;
     };
 

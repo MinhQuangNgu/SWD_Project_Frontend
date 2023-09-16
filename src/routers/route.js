@@ -28,7 +28,8 @@ export const publicRouter = [
 	,
 	{
 		element: Recipe,
-		path: "/recipe/:slug"
+		path: "/recipe/:slug",
+		layout: Publiclayout,
 	},
 	{
 		element: Searching,
