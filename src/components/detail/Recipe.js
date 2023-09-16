@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import './style.scss'
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 const Recipe = () => {
     const [comment, setComment] = useState('');
+    const [defaultStar, setDefaultStar] = useState(5);
+    const [rating, setRating] = useState(0);
+    const [showIcons,setShowICons] = useState(false);
 
     const handleCommentChange = (e) => {
         setComment(e.target.value);
@@ -12,9 +17,7 @@ const Recipe = () => {
         console.log('Comment posted:', comment);
     };
 
-    const [rating, setRating] = useState(0);
 
-    const [defaultStar, setDefaultStar] = useState(5);
 
     const handleRatingChange = (value) => {
         setRating(value);
@@ -161,11 +164,28 @@ const Recipe = () => {
 
                                                     </div>
                                                     <div className="d-flex justify-content-between mt-3">
-                                                        <button type="button" className="btn btn-success">
-                                                            Danger
-                                                        </button>
-                                                        <button type="button" className="btn btn-danger">
-                                                            Send <i className="fas fa-long-arrow-alt-right ms-1"></i>
+                                                        <div className='icons_container'>
+                                                            {/* <div onClick={() => {
+                                                                setShowICons(!showIcons);
+                                                            }}>
+                                                            🙂
+                                                            </div>
+                                                            {showIcons && <div className='icons_picker'>
+                                                            <Picker
+                                                            data={data}
+                                                            onEmojiSelect={(e) => {
+                                                                // const content = contentRef.current;
+                                                                // if (!content) {
+                                                                //     return;
+                                                                // }
+                                                                // content.innerHTML = comment + e?.native;
+                                                                // setComment(content.innerHTML);
+                                                            }}
+                                                        />
+                                                            </div>} */}
+                                                        </div>
+                                                        <button type="button" className="btn btn-primary">
+                                                            Gửi <i className="fas fa-long-arrow-alt-right ms-1"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -283,19 +303,19 @@ const Recipe = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer py-3 border-0" style={{backgroundColor:"#f8f9fa"}}>
+                                        <div class="card-footer py-3 border-0" style={{ backgroundColor: "#f8f9fa" }}>
                                             <div class="d-flex flex-start w-100">
                                                 <img class="rounded-circle shadow-1-strong me-3"
                                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
                                                     height="40" />
                                                 <div class="form-outline w-100">
                                                     <textarea placeholder='Bình luận' class="form-control" id="textAreaExample" rows="4"
-                                                        style={{backgroundColor:"#fff"}}></textarea>
+                                                        style={{ backgroundColor: "#fff" }}></textarea>
                                                 </div>
                                             </div>
                                             <div class="float-end mt-2 pt-1">
                                                 <button type="button" class="btn btn-primary btn-sm">Post comment</button>
-                                                <button style={{marginLeft:"10px"}} type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                                                <button style={{ marginLeft: "10px" }} type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                         <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa' }}>
