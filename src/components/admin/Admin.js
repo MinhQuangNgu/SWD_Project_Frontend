@@ -3,6 +3,7 @@ import './style.scss'
 import { Link, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Accounts from './Accounts'
+import Recipes from './Recipes'
 
 
 const Admin = () => {
@@ -39,9 +40,16 @@ const Admin = () => {
         </div>
         <div className="content">
           <nav className="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <form className="d-none d-md-flex ms-4">
-              <input className="form-control border-0" type="search" placeholder="Search" />
-            </form>
+            <div className="d-none d-md-flex ms-4">
+              <div className="input-group">
+                <div className="form-outline">
+                  <input placeholder='Tìm kiếm' type="search" id="form1" className="form-control" />
+                </div>
+                <button type="button" className="btn btn-primary">
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
             <div className="navbar-nav align-items-center ms-auto">
               <div className="nav-item dropdown">
                 <div style={{ cursor: "pointer" }} className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -58,6 +66,7 @@ const Admin = () => {
           </nav>
           {type === 'dashboard' && <Dashboard />}
           {type === 'accounts' && <Accounts />}
+          {type === 'recipes' && <Recipes />}
         </div>
       </div>
       <div href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="fa fa-arrow-up"></i></div>

@@ -3,7 +3,6 @@ import './style.scss'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import RecipeCard from '../card/RecipeCard';
-import { Link } from 'react-router-dom';
 import ChefCard from '../card/ChefCard';
 const animatedComponents = makeAnimated();
 const Searching = () => {
