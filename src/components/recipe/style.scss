@@ -3,10 +3,16 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+}
+.create_recipe_container{
+    padding-top: 50px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     background: url("https://res.cloudinary.com/sttruyen/image/upload/v1694855426/bsaoyb190aabhri2rrot.jpg") no-repeat;
     background-size: cover;
 }
-
 .inner {
     max-width: 850px;
     margin: auto;
@@ -27,7 +33,7 @@
     padding-left: 15px;
 }
 
-h3 {
+.create_recipe_container h3 {
     font-size: 35px;
     font-family: "ElMessiri-SemiBold";
     text-align: center;
@@ -165,7 +171,7 @@ h3 {
     }
 }
 
-button {
+.create_recipe_container button {
     letter-spacing: 2px;
     border: none;
     width: 133px;
@@ -187,7 +193,7 @@ button {
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
 
-button:hover {
+.create_recipe_container button:hover {
     -webkit-animation-name: hvr-wobble-horizontal;
     animation-name: hvr-wobble-horizontal;
     -webkit-animation-duration: 1s;
@@ -270,13 +276,19 @@ button:hover {
 }
 .recipe_create{
     width: 60%;
-    min-height: 100px;
+    min-height: 300px;
     background-color: white;
     margin-left: 20%;
-    margin-top: -20px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     -ms-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     -o-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding:0 10px;
+}
+.recipe_create_edit{
+    border:2px solid rgba(0, 0, 0, 0.1);
+    padding:10px;
 }
