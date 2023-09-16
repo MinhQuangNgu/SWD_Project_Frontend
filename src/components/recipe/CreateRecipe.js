@@ -104,6 +104,9 @@ const CreateRecipe = () => {
                             }}
                         />
                     </div>
+                    <div style={{marginTop:"30px",marginBottom:"20px"}} className='d-flex justify-content-center'>
+                        <button>Tạo mới</button>
+                    </div>
                 </div>
             </div>
         </div>
