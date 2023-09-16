@@ -8,7 +8,7 @@ const RecipeCard = () => {
                 <Link to='/recipe/id'>
                     <img style={{ height: "350px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
                 </Link>
-                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
+                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-1 px-3">Nổi bật</div>
             </div>
             <div class="text-center p-2">
                 <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/recipe/id">Fresh Tomato</Link>

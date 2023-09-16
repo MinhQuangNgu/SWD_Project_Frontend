@@ -3,6 +3,8 @@ import './style.scss'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import RecipeCard from '../card/RecipeCard';
+import { Link } from 'react-router-dom';
+import ChefCard from '../card/ChefCard';
 const animatedComponents = makeAnimated();
 const Searching = () => {
 
@@ -91,23 +93,48 @@ const Searching = () => {
                 <div className='row'>
                     <div className='col-1'></div>
                     <div className='col-10'>
-                        <div className='search_container'>
-                            <div className='row w-100'>
-                                <div style={{marginBottom:"20px"}} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                    <RecipeCard />
-                                </div>
-                                <di style={{marginBottom:"20px"}}v class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                    <RecipeCard />
-                                </di>
-                                <div style={{marginBottom:"20px"}} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                    <RecipeCard />
-                                </div>
-                                <div style={{marginBottom:"20px"}} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                    <RecipeCard />
-                                </div>
-                                <div style={{marginBottom:"20px"}} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                    <RecipeCard />
-                                </div>
+                        <div className='row w-100 search_container'>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <RecipeCard />
+                            </div>
+                            <di style={{ marginBottom: "20px" }} v class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <RecipeCard />
+                            </di>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <RecipeCard />
+                            </div>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <RecipeCard />
+                            </div>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <RecipeCard />
+                            </div>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <ChefCard />
+                            </div>
+                            <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <ChefCard />
+                            </div>
+                            <div style={{marginTop:"30px"}} className='col-12 d-flex justify-content-center'>
+                                <nav aria-label="Page navigation example">
+                                    <ul className="pagination">
+                                        <li style={{cursor:"pointer"}} className="page-item">
+                                            <div className="page-link" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span className="sr-only">Previous</span>
+                                            </div>
+                                        </li>
+                                        <li style={{cursor:"pointer"}} className="page-item"><div className="page-link active" href="#">1</div></li>
+                                        <li style={{cursor:"pointer"}} className="page-item"><div className="page-link" href="#">2</div></li>
+                                        <li style={{cursor:"pointer"}} className="page-item"><div className="page-link" href="#">3</div></li>
+                                        <li style={{cursor:"pointer"}} className="page-item">
+                                            <div className="page-link" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span className="sr-only">Next</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
