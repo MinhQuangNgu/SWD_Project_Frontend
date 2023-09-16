@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './style.scss'
+import RecipeCard from '../card/RecipeCard';
+import ProfileCard from '../card/ProfileCard';
 const Home = () => {
   return (
     <>
@@ -58,174 +60,13 @@ const Home = () => {
           <div class="tab-content">
             <div class="tab-pane fade show p-0 active">
               <div class="row g-4">
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
                 <div class="col-12 text-center">
                   <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
                 </div>
@@ -246,174 +87,14 @@ const Home = () => {
           <div class="tab-content">
             <div class="tab-pane fade show p-0 active">
               <div class="row g-4">
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden">
-                      <img style={{ maxHeight: "350px" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                      <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                    </div>
-                    <div class="text-center p-2">
-                      <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                      <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                      <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                    </div>
-                    <div class="d-flex border-top">
-                      <small class="w-50 text-center border-end py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                      </small>
-                      <small class="w-50 text-center py-2">
-                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                      </small>
-                    </div>
-                  </div>
-                </div>
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
+                <RecipeCard />
                 <div class="col-12 text-center">
                   <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
                 </div>
@@ -443,160 +124,16 @@ const Home = () => {
             }}
           >
             <SwiperSlide>
-              <section style={{ backgroundColor: "#9de2ff", height: "250px", borderRadius: "30px" }}>
-                <div class="container custom_py-5 h-100">
-                  <div class="row d-flex align-items-center">
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                      <div class="card" style={{ borderRadius: "15px" }}>
-                        <div style={{ height: "150px" }} class="card-body p-4">
-                          <div class="d-flex text-black">
-                            <div class="flex-shrink-0">
-                              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                alt="Generic placeholder image" class="img-fluid"
-                                style={{ width: "100px", height: "80px", objectFit: "cover" }} />
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                              <h5 class="mb-1">Danny McLoan</h5>
-                              <p class="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Senior Journalist</p>
-                              <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                style={{ backgroundColor: "#efefef" }}>
-                                <div>
-                                  <p class="small text-muted mb-1">Articles</p>
-                                  <p class="mb-0">41</p>
-                                </div>
-                                <div class="px-3">
-                                  <p class="small text-muted mb-1">Followers</p>
-                                  <p class="mb-0">976</p>
-                                </div>
-                              </div>
-                              <div class="d-flex pt-1">
-                                <button type="button" class="btn btn-primary flex-grow-1">Theo dõi</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <ProfileCard />
             </SwiperSlide>
             <SwiperSlide>
-              <section style={{ backgroundColor: "#9de2ff", height: "250px", borderRadius: "30px" }}>
-                <div class="container custom_py-5 h-100">
-                  <div class="row d-flex align-items-center">
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                      <div class="card" style={{ borderRadius: "15px" }}>
-                        <div style={{ height: "150px" }} class="card-body p-4">
-                          <div class="d-flex text-black">
-                            <div class="flex-shrink-0">
-                              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                alt="Generic placeholder image" class="img-fluid"
-                                style={{ width: "100px", height: "80px", objectFit: "cover" }} />
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                              <h5 class="mb-1">Danny McLoan</h5>
-                              <p class="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Senior Journalist</p>
-                              <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                style={{ backgroundColor: "#efefef" }}>
-                                <div>
-                                  <p class="small text-muted mb-1">Articles</p>
-                                  <p class="mb-0">41</p>
-                                </div>
-                                <div class="px-3">
-                                  <p class="small text-muted mb-1">Followers</p>
-                                  <p class="mb-0">976</p>
-                                </div>
-                              </div>
-                              <div class="d-flex pt-1">
-                                <button type="button" class="btn btn-primary flex-grow-1">Theo dõi</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <ProfileCard />
             </SwiperSlide>
             <SwiperSlide>
-              <section style={{ backgroundColor: "#9de2ff", height: "250px", borderRadius: "30px" }}>
-                <div class="container custom_py-5 h-100">
-                  <div class="row d-flex align-items-center">
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                      <div class="card" style={{ borderRadius: "15px" }}>
-                        <div style={{ height: "150px" }} class="card-body p-4">
-                          <div class="d-flex text-black">
-                            <div class="flex-shrink-0">
-                              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                alt="Generic placeholder image" class="img-fluid"
-                                style={{ width: "100px", height: "80px", objectFit: "cover" }} />
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                              <h5 class="mb-1">Danny McLoan</h5>
-                              <p class="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Senior Journalist</p>
-                              <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                style={{ backgroundColor: "#efefef" }}>
-                                <div>
-                                  <p class="small text-muted mb-1">Articles</p>
-                                  <p class="mb-0">41</p>
-                                </div>
-                                <div class="px-3">
-                                  <p class="small text-muted mb-1">Followers</p>
-                                  <p class="mb-0">976</p>
-                                </div>
-                              </div>
-                              <div class="d-flex pt-1">
-                                <button type="button" class="btn btn-primary flex-grow-1">Theo dõi</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <ProfileCard />
             </SwiperSlide>
             <SwiperSlide>
-              <section style={{ backgroundColor: "#9de2ff", height: "250px", borderRadius: "30px" }}>
-                <div class="container custom_py-5 h-100">
-                  <div class="row d-flex align-items-center">
-                    <div class="col col-md-9 col-lg-7 col-xl-5">
-                      <div class="card" style={{ borderRadius: "15px" }}>
-                        <div style={{ height: "150px" }} class="card-body p-4">
-                          <div class="d-flex text-black">
-                            <div class="flex-shrink-0">
-                              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                alt="Generic placeholder image" class="img-fluid"
-                                style={{ width: "100px", height: "80px", objectFit: "cover" }} />
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                              <h5 class="mb-1">Danny McLoan</h5>
-                              <p class="mb-2 pb-1" style={{ color: "#2b2a2a" }}>Senior Journalist</p>
-                              <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                style={{ backgroundColor: "#efefef" }}>
-                                <div>
-                                  <p class="small text-muted mb-1">Articles</p>
-                                  <p class="mb-0">41</p>
-                                </div>
-                                <div class="px-3">
-                                  <p class="small text-muted mb-1">Followers</p>
-                                  <p class="mb-0">976</p>
-                                </div>
-                              </div>
-                              <div class="d-flex pt-1">
-                                <button type="button" class="btn btn-primary flex-grow-1">Theo dõi</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <ProfileCard />
             </SwiperSlide>
           </Swiper>
         </div>
