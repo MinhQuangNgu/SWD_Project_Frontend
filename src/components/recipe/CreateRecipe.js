@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import './style.scss'
 import { Editor } from "react-draft-wysiwyg";
+import { useDropzone } from 'react-dropzone'
 import {
     EditorState,
     ContentState,
@@ -8,7 +9,19 @@ import {
     Modifier,
     convertFromHTML,
 } from "draft-js";
+import {useNavigate} from 'react-router-dom';
 const CreateRecipe = () => {
+
+
+    const navigate = useNavigate();
+
+    const onDrop = useCallback(acceptedFiles => {
+        console.log(acceptedFiles);
+    }, [])
+
+    const [image,setImage] = useState('asds');
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const handleChange = (data) => {
         setEditorState(data);
@@ -51,12 +64,33 @@ const CreateRecipe = () => {
             //     });
         });
     };
+    const handleBackPage = () => {
+        navigate(-1);
+    }
     return (
         <div className='create_recipe_container'>
             <div class="wrapper">
                 <div class="inner">
                     <div class="image-holder">
-                        <img style={{ width: "400px", height: "500px", objectFit: "cover" }} src="https://res.cloudinary.com/sttruyen/image/upload/v1694748169/gwrobojgvpbfyejhb40j.jpg" alt="" />
+                        <div style={{
+                            width: '400px',
+                            height: "500px", border: "1px solid rgba(0,0,0,0.1)"
+                        }} className='d-flex justify-content-center align-items-center' {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            {
+                                !image ? <div>
+                                    <div className='d-flex justify-content-center'>
+                                        <i style={{ fontSize: "50px", color: "rgba(0,0,0,0.7)" }} className="fa-solid fa-image"></i>
+                                    </div>
+                                    <div>
+                                        <i>
+                                            Thêm ảnh tại đây
+                                        </i>
+                                    </div>
+                                </div> :
+                                <img style={{ width: "400px", height: "500px", objectFit: "cover" }} src="https://res.cloudinary.com/sttruyen/image/upload/v1694748169/gwrobojgvpbfyejhb40j.jpg" alt="" />
+                            }
+                        </div>
                     </div>
                     <div style={{ width: "400px" }} className='create_form' action="">
                         <h3 style={{ marginBottom: "30px" }}>Tạo công thức</h3>
@@ -104,10 +138,13 @@ const CreateRecipe = () => {
                             }}
                         />
                     </div>
-                    <div style={{marginTop:"30px",marginBottom:"20px"}} className='d-flex justify-content-center'>
+                    <div style={{ marginTop: "30px", marginBottom: "20px" }} className='d-flex justify-content-center'>
                         <button>Tạo mới</button>
                     </div>
                 </div>
+            </div>
+            <div className='back_button'>
+                <button onClick={handleBackPage}> <i style={{marginRight:"10px"}} className="fa-solid fa-arrow-left"></i>Quay lại</button>
             </div>
         </div>
     )
