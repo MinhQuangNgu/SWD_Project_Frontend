@@ -37,7 +37,7 @@ const Header = () => {
               <Link style={{ textDecoration: "none", color: "black" }} className="btn-sm-square bg-white rounded-circle ms-3" to='/search'>
                 <small className="fa fa-search text-body"></small>
               </Link>
-              <Link style={{ textDecoration: "none", color: "black" }} className="btn-sm-square bg-white rounded-circle ms-3" to='/'>
+              <Link style={{ textDecoration: "none", color: "black" }} className="btn-sm-square bg-white rounded-circle ms-3" to='/minhquang/profile'>
                 <i className="fa-regular fa-heart"></i>
               </Link>
               {wasLogin ?
