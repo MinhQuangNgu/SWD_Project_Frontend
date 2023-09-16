@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
 import { Link } from 'react-router-dom'
+import OwnRecipeCard from '../card/OwnRecipeCard';
+import RecipeCard from '../card/RecipeCard';
 const Profile = () => {
     const [type, setType] = useState("");
-    const [edit,setEdit] = useState(false);
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    },[]);
+    }, []);
     return (
         <div className='profile'>
             <section style={{ backgroundColor: '#E1E4EB' }}>
@@ -24,16 +26,16 @@ const Profile = () => {
                                         <button onClick={() => {
                                             setEdit(true);
                                         }} style={{ backgroundColor: "#93E2BB", border: "none" }} type="button" className="btn btn-primary">Sửa thông tin</button>
-                                        <button style={{ border: "none",marginLeft:"10px" }} type="button" className="btn btn-secondary">Thêm công thức</button>
-                                    </div>:
-                                    <div className="d-flex justify-content-center mb-2">
-                                    <button onClick={() => {
-                                        setEdit(false);
-                                    }} style={{ backgroundColor: "#93E2BB", border: "none",marginRight:"10px" }} type="button" className="btn btn-primary">Xác nhận</button>
-                                    <button onClick={() => {
-                                        setEdit(false);
-                                    }} type="button" className="btn btn-secondary">Hủy</button>
-                                    </div>}
+                                        <button style={{ border: "none", marginLeft: "10px" }} type="button" className="btn btn-secondary">Thêm công thức</button>
+                                    </div> :
+                                        <div className="d-flex justify-content-center mb-2">
+                                            <button onClick={() => {
+                                                setEdit(false);
+                                            }} style={{ backgroundColor: "#93E2BB", border: "none", marginRight: "10px" }} type="button" className="btn btn-primary">Xác nhận</button>
+                                            <button onClick={() => {
+                                                setEdit(false);
+                                            }} type="button" className="btn btn-secondary">Hủy</button>
+                                        </div>}
                                 </div>
                             </div>
                             <div className="card mb-4 mb-lg-0">
@@ -55,10 +57,10 @@ const Profile = () => {
                                             <p className="mb-0">Full Name</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {!edit ? 
-                                            <p className="text-muted mb-0">Johnatan Smith</p>
-                                            :
-                                            <input className='text-muted mb-0 custom_input_profile' value="Johnatan Smith" type='text'/>
+                                            {!edit ?
+                                                <p className="text-muted mb-0">Johnatan Smith</p>
+                                                :
+                                                <input className='text-muted mb-0 custom_input_profile' value="Johnatan Smith" type='text' />
                                             }
                                         </div>
                                     </div>
@@ -122,174 +124,27 @@ const Profile = () => {
                                 </div>
                                 {type === '' ? <div className='row'>
                                     <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                        <div class="product-item">
-                                            <div class="position-relative bg-light overflow-hidden">
-                                                <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                            </div>
-                                            <div class="text-center p-2">
-                                                <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                            </div>
-                                            <div class="d-flex border-top">
-                                                <small class="w-50 text-center border-end py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                </small>
-                                                <small class="w-50 text-center py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <OwnRecipeCard />
                                     </div>
                                     <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                        <div class="product-item">
-                                            <div class="position-relative bg-light overflow-hidden">
-                                                <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                            </div>
-                                            <div class="text-center p-2">
-                                                <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                            </div>
-                                            <div class="d-flex border-top">
-                                                <small class="w-50 text-center border-end py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                </small>
-                                                <small class="w-50 text-center py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <OwnRecipeCard />
                                     </div>
                                     <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                        <div class="product-item">
-                                            <div class="position-relative bg-light overflow-hidden">
-                                                <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                            </div>
-                                            <div class="text-center p-2">
-                                                <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                            </div>
-                                            <div class="d-flex border-top">
-                                                <small class="w-50 text-center border-end py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                </small>
-                                                <small class="w-50 text-center py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <OwnRecipeCard />
                                     </div>
                                     <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                        <div class="product-item">
-                                            <div class="position-relative bg-light overflow-hidden">
-                                                <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                            </div>
-                                            <div class="text-center p-2">
-                                                <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                            </div>
-                                            <div class="d-flex border-top">
-                                                <small class="w-50 text-center border-end py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                </small>
-                                                <small class="w-50 text-center py-2">
-                                                    <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <OwnRecipeCard />
                                     </div>
                                 </div> :
                                     type === "love" ? <div className='row'>
                                         <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                            <div class="product-item">
-                                                <div class="position-relative bg-light overflow-hidden">
-                                                    <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                                </div>
-                                                <div class="text-center p-2">
-                                                    <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                    <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                    <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                                </div>
-                                                <div class="d-flex border-top">
-                                                    <small class="w-50 text-center border-end py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                    </small>
-                                                    <small class="w-50 text-center py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                    </small>
-                                                </div>
-                                            </div>
+                                            <RecipeCard imageHeight={200}/>
                                         </div>
                                         <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                            <div class="product-item">
-                                                <div class="position-relative bg-light overflow-hidden">
-                                                    <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                                </div>
-                                                <div class="text-center p-2">
-                                                    <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                    <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                    <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                                </div>
-                                                <div class="d-flex border-top">
-                                                    <small class="w-50 text-center border-end py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                    </small>
-                                                    <small class="w-50 text-center py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                    </small>
-                                                </div>
-                                            </div>
+                                            <RecipeCard imageHeight={200}/>
                                         </div>
                                         <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                            <div class="product-item">
-                                                <div class="position-relative bg-light overflow-hidden">
-                                                    <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                                </div>
-                                                <div class="text-center p-2">
-                                                    <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                    <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                    <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                                </div>
-                                                <div class="d-flex border-top">
-                                                    <small class="w-50 text-center border-end py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                    </small>
-                                                    <small class="w-50 text-center py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style={{ marginBottom: "20px" }} class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                            <div class="product-item">
-                                                <div class="position-relative bg-light overflow-hidden">
-                                                    <img style={{ height: "250px", objectFit: "cover" }} class="img-fluid w-100" src="https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ea4r3uwdjmkobr1mpmkg.jpg" alt="" />
-                                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nổi bật</div>
-                                                </div>
-                                                <div class="text-center p-2">
-                                                    <Link style={{ textDecoration: "none" }} class="d-block h5 mb-1" to="/">Fresh Tomato</Link>
-                                                    <span style={{ fontSize: "15px", fontStyle: "italic" }} class="text-secondary me-2 d-block">by MinhQuang</span>
-                                                    <span class="text-secondary me-1">2000 <i style={{ color: "red" }} class="fa-solid fa-heart"></i></span>
-                                                </div>
-                                                <div class="d-flex border-top">
-                                                    <small class="w-50 text-center border-end py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</Link>
-                                                    </small>
-                                                    <small class="w-50 text-center py-2">
-                                                        <Link style={{ textDecoration: "none" }} class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</Link>
-                                                    </small>
-                                                </div>
-                                            </div>
+                                            <RecipeCard imageHeight={200}/>
                                         </div>
                                     </div> : <div className='row'>
                                         <div style={{ marginBottom: "20px" }} class="col-xl-6 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -298,7 +153,7 @@ const Profile = () => {
                                                     <div class="row d-flex align-items-center">
                                                         <div class="col col-md-9 col-lg-7 col-xl-5">
                                                             <div class="card" style={{ borderRadius: "15px" }}>
-                                                                <div style={{height: "150px"}} class="card-body p-4">
+                                                                <div style={{ height: "150px" }} class="card-body p-4">
                                                                     <div class="d-flex text-black">
                                                                         <div class="flex-shrink-0">
                                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
@@ -337,7 +192,7 @@ const Profile = () => {
                                                     <div class="row d-flex align-items-center">
                                                         <div class="col col-md-9 col-lg-7 col-xl-5">
                                                             <div class="card" style={{ borderRadius: "15px" }}>
-                                                                <div style={{height: "150px"}} class="card-body p-4">
+                                                                <div style={{ height: "150px" }} class="card-body p-4">
                                                                     <div class="d-flex text-black">
                                                                         <div class="flex-shrink-0">
                                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
@@ -376,7 +231,7 @@ const Profile = () => {
                                                     <div class="row d-flex align-items-center">
                                                         <div class="col col-md-9 col-lg-7 col-xl-5">
                                                             <div class="card" style={{ borderRadius: "15px" }}>
-                                                                <div style={{height: "150px"}} class="card-body p-4">
+                                                                <div style={{ height: "150px" }} class="card-body p-4">
                                                                     <div class="d-flex text-black">
                                                                         <div class="flex-shrink-0">
                                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
@@ -415,7 +270,7 @@ const Profile = () => {
                                                     <div class="row d-flex align-items-center">
                                                         <div class="col col-md-9 col-lg-7 col-xl-5">
                                                             <div class="card" style={{ borderRadius: "15px" }}>
-                                                                <div style={{height: "150px"}} class="card-body p-4">
+                                                                <div style={{ height: "150px" }} class="card-body p-4">
                                                                     <div class="d-flex text-black">
                                                                         <div class="flex-shrink-0">
                                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
