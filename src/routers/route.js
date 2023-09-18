@@ -7,6 +7,7 @@ import Recipe from "../components/detail/Recipe";
 import Searching from "../components/search/Searching";
 import Admin from "../components/admin/Admin";
 import CreateRecipe from "../components/recipe/CreateRecipe";
+import Forgot from "../components/auth/Forgot";
 export const publicRouter = [
 	{
 		element: Home,
@@ -20,6 +21,10 @@ export const publicRouter = [
 	{
 		element: Register,
 		path: "/register",
+	},
+	{
+		element: Forgot,
+		path: "/forgot",
 	},
 	{
 		element: Profile,

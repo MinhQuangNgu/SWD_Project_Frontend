@@ -121,7 +121,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 110px 130px 33px 80px;
+  padding: 70px 130px 33px 80px;
 }
 
 /*------------------------------------------------------------------
@@ -383,8 +383,20 @@ iframe {
   padding-top: 12px;
 }
 .p-t-136{
-  padding-top: 90px;
+  padding-top: 30px;
 }
 .m-l-5{
   margin-left: 5px;
+}
+.circle_border{
+  margin:0 5px;
+  margin-top: 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border:2px solid rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }

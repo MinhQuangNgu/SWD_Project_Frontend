@@ -82,7 +82,7 @@ const Home = () => {
                   <RecipeCard />
                 </div>
                 <div class="col-12 text-center">
-                  <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
+                  <Link class="btn btn-primary rounded-pill py-3 px-5" to="/search">Hiển thị thêm</Link>
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@ const Home = () => {
                   <RecipeCard />
                 </div>
                 <div class="col-12 text-center">
-                  <Link class="btn btn-primary rounded-pill py-3 px-5" href="">Hiển thị thêm</Link>
+                  <Link class="btn btn-primary rounded-pill py-3 px-5" to="/search">Hiển thị thêm</Link>
                 </div>
               </div>
             </div>

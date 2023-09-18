@@ -49,15 +49,23 @@ const Register = () => {
                             </div>
                             <div className="text-center p-t-12">
                                 <span className="txt1">
-                                    Forgot
+                                    Quên
                                 </span>
                                 <Link style={{ marginLeft: "10px" }} className="txt2 link_auth" to="/forgot">
-                                    Username / Password?
+                                    tài khoản/mật khẩu?
                                 </Link>
+                            </div>
+                            <div className='w-100 d-flex justify-content-center'>
+                                <div className='circle_border'>
+                                    <i className="fa-brands fa-facebook-f"></i>
+                                </div>
+                                <div className='circle_border'>
+                                    <i className="fa-brands fa-google"></i>
+                                </div>
                             </div>
                             <div className="text-center p-t-136">
                                 <Link className="txt2 link_auth" to="/login">
-                                    Đã có tài khoản
+                                    Đã có tài khoản ?
                                     <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                                 </Link>
                             </div>
