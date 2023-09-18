@@ -6,11 +6,11 @@ const Recipe = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-    },[]);
+    }, []);
     const [comment, setComment] = useState('');
     const [defaultStar, setDefaultStar] = useState(5);
     const [rating, setRating] = useState(0);
-    const [showIcons,setShowICons] = useState(false);
+    const [showIcons, setShowICons] = useState(false);
 
     const handleCommentChange = (e) => {
         setComment(e.target.value);
@@ -62,6 +62,12 @@ const Recipe = () => {
                             <div className='recipe-owner'>
                                 <div className='recipe-owner-image'>
                                     <img src="https://res.cloudinary.com/sttruyen/image/upload/v1694421664/twfa0a0rxzx2lwtkeryt.jpg" />
+                                    <div className='recipe-owner-qr-img'>
+                                        <img src="https://res.cloudinary.com/sttruyen/image/upload/v1695020641/another/sotraosven0w6fdm4mr9.png" />
+                                    </div>
+                                    <div className='recipe-owner-attackment'>
+                                        <i className="fa-solid fa-paperclip"></i>
+                                    </div>
                                 </div>
                                 <div className='recipe-owner-name'>
                                     <p>Minh Quang</p>
