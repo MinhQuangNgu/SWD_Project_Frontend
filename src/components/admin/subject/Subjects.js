@@ -41,6 +41,17 @@ const Subjects = () => {
         }
     }
 
+    const handleSetStatus = async (id) => {
+        try{
+            const data = await axios.post(`/subject/c_status/${id}`);
+            toast.success(data.data.message);
+            setReload(pre => !pre);
+        }
+        catch(err){
+            return toast.error(err?.message);
+        }
+    }
+
     return (
         <div style={{ marginTop: "40px" }}>
             <div className='d-flex btn_subject_manager'>
@@ -116,7 +127,7 @@ const Subjects = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="status border-bottom-0-custom"><span className="active">{item?.status_name}</span></td>
+                                        <td className="status border-bottom-0-custom"><span className={item?.status_name ==='Active' ? 'active' : 'inactive'}>{item?.status_name}</span></td>
                                         <td className="border-bottom-0-custom">
                                             <button onClick={() => {
                                                 setType('update');
@@ -129,7 +140,9 @@ const Subjects = () => {
                                             }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-danger">
                                                 Delete
                                             </button>
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
+                                            <button onClick={() => {
+                                                handleSetStatus(item?.id)
+                                            }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
                                                 Active/Deactive
                                             </button>
                                         </td>
@@ -140,8 +153,8 @@ const Subjects = () => {
                     </div>
                 </div>
             </section>}
-            {type === 'create' && <CreateNewSubject />}
-            {type === 'update' && <UpdateSubject updateSubject={updateSubject}/>}
+            {type === 'create' && <CreateNewSubject setReloadSubject={setReload}/>}
+            {type === 'update' && <UpdateSubject updateSubject={updateSubject} setReloadSubject={setReload}/>}
         </div>
     )
 }

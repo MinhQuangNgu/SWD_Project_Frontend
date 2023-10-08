@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import UpdateIssue from './UpdateIssue';
 
-const CreateNewSubject = () => {
+const CreateNewSubject = ({setReloadSubject}) => {
 
     const [createIssue, setCreateIssue] = useState(false);
     const [updateIssue,setUpdateIssue] = useState(false);
@@ -66,6 +66,14 @@ const CreateNewSubject = () => {
                 ...subject
             });
             toast.success(data.data.message);
+            nameRef.current.value = '';
+            codeRef.current.value = '';
+            descriptionRef.current.value = '';
+            syllabusRef.current.value = '';
+            gitlabConfigRef.current.value = '';
+            setIssues([]);
+            managerRef.current.value = null;
+            setReloadSubject(pre => !pre);
         }
         catch (err) {
             return toast.error(err?.message);

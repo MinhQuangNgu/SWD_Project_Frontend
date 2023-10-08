@@ -366,8 +366,15 @@
     color: #1fa750;
 }
 
+.table tbody td.status .inactive {
+    background: red;
+    color: white;
+}
 .table tbody td.status .active:after {
     background: #23bd5a;
+}
+.table tbody td.status .inactive:after {
+    background: white;
 }
 
 .table tbody td.status .waiting {

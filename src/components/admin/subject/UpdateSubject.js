@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import UpdateIssue from './UpdateIssue';
 
-const UpdateSubject = ({ updateSubject }) => {
+const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
     const [createIssue, setCreateIssue] = useState(false);
     const [updateIssue, setUpdateIssue] = useState(false);
 
@@ -18,6 +18,7 @@ const UpdateSubject = ({ updateSubject }) => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [issues, setIssues] = useState([]);
+    const [tempIssues,setTempIssues] = useState([]);
 
     const handleRemoveIssues = (index) => {
         const issueTemp = issues;
@@ -31,7 +32,6 @@ const UpdateSubject = ({ updateSubject }) => {
 
     useEffect(() => {
         if (updateSubject) {
-
             axios.get(`/subject/${updateSubject?.id}`)
                 .then(res => {
                     const subject = res.data?.subject[0];
@@ -40,6 +40,7 @@ const UpdateSubject = ({ updateSubject }) => {
                     descriptionRef.current.value = subject.description;
                     syllabusRef.current.value = subject.syllabus;
                     gitlabConfigRef.current.value = subject.gitlab_config;
+                    setTempIssues(res.data?.issues);
                     setSubject(subject);
                 })
                 .catch(err => {
@@ -51,12 +52,30 @@ const UpdateSubject = ({ updateSubject }) => {
                 }).catch(err => {
                     toast.error(err?.message);
                 })
+
         }
     }, [updateSubject]);
 
-    const handleCreateNewSubject = async () => {
+    useEffect(() => {
+        if(tempIssues && status){
+            console.log(tempIssues);
+            console.log(status);
+            let temp = tempIssues;
+            temp = temp.map(item => {
+                let tempStatus = status.filter(i => i.id == item.status_id);
+                return {
+                    ...item,
+                    status:tempStatus[0],
+                    label:item?.type_id
+                }
+            });
+            setIssues([...temp]);
+        }
+    },[tempIssues,status]);
+
+    const handleUpdateSubject = async () => {
         try {
-            const subject = {
+            const tempSubject = {
                 name: nameRef.current.value,
                 code: codeRef.current.value,
                 description: descriptionRef.current.value,
@@ -69,11 +88,11 @@ const UpdateSubject = ({ updateSubject }) => {
 
             let error = false;
 
-            if (!subject.name) {
+            if (!tempSubject.name) {
                 toast.error('Name is required');
                 error = true;
             }
-            if (!subject.code) {
+            if (!tempSubject.code) {
                 toast.error('Code is required');
                 error = true;
             }
@@ -81,14 +100,17 @@ const UpdateSubject = ({ updateSubject }) => {
                 return;
             }
             const data = await axios.put(`/subject/${subject?.id}`, {
-                ...subject
+                ...tempSubject
             });
             toast.success(data.data.message);
+            setReloadSubject(pre => !pre);
         }
         catch (err) {
             return toast.error(err?.message);
         }
     };
+
+
 
     const handleChangeStatus = (index) => {
         const issueTemp = issues;
@@ -223,7 +245,7 @@ const UpdateSubject = ({ updateSubject }) => {
                     </fieldset>
                     <div className="form-group row">
                         <div className="col-sm-12 d-flex justify-content-center">
-                            <button onClick={handleCreateNewSubject} type="submit" className="btn btn-primary">Create new subject</button>
+                            <button onClick={handleUpdateSubject} type="submit" className="btn btn-primary">Update subject</button>
                         </div>
                     </div>
                 </div>
