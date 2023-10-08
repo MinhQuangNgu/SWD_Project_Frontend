@@ -79,7 +79,7 @@ const Label = ({ setLabel ,setReloadIssue}) => {
                                                                 <th scope="row" style={{ color: "#666666" }}>{item.id}</th>
                                                                 <td>{item.name}</td>
                                                                 <td>
-                                                                    <p>{item.description} asdsadasdujnsa dljndsalsn alasjldnaslndsalkasdsaasdasd</p>
+                                                                    <p>{item.description}</p>
                                                                 </td>
                                                                 <td>
                                                                     <input type='color' defaultValue={item?.color} disabled />

@@ -47,7 +47,6 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
                 toast.error("Title is required");
                 return;
             }
-            console.log(issue);
             setIssues(pre => [...pre, issue]);
             setCreate(pre => !pre);
         }
@@ -69,25 +68,25 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
                 </div>
                 <div className='add_issues_form_input'>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputEmail3" className="col-sm-2 col-form-label">Title*:</label>
+                        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Title*:</label>
                         <div className="col-sm-10">
                             <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Title" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="description" className="col-sm-2 col-form-label">Description:</label>
+                        <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
                             <textarea ref={descriptionRef} style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputEmail3" className="col-sm-2 col-form-label">Label:</label>
+                        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Label:</label>
                         <div className="col-sm-10">
                             <div className='row'>
                                 <div className='col-sm-8'>
                                     <select ref={labelRef} style={{ width: "100%" }} className="form-select" aria-label="Label">
                                         {labels?.map(item => (
-                                            <option value={item?.id}>{item?.name}</option>
+                                            <option key={item?.id + "ads"} value={item?.id}>{item?.name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -109,7 +108,7 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
                                             setStatusIssue(item);
                                         }
                                     }} className="form-check-input" type="radio" name="gridRadios" id={item?.id} value={item?.id} defaultChecked />
-                                    <label className="form-check-label" for={item?.id}>
+                                    <label className="form-check-label" htmlFor={item?.id}>
                                         {item?.name}
                                     </label>
                                 </div>)}

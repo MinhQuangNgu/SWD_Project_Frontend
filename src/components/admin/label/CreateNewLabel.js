@@ -40,19 +40,19 @@ const CreateNewLabel = ({ setCreateLabel,setReload }) => {
                     &times;
                 </div>
                 <div style={{ margin: "20px 0" }} className="form-group row">
-                    <label for="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
+                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                     <div className="col-sm-10">
                         <input ref={namRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
                     </div>
                 </div>
                 <div style={{ margin: "20px 0" }} className="form-group row">
-                    <label for="description" className="col-sm-2 col-form-label">Description:</label>
+                    <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                     <div className="col-sm-10">
                         <textarea ref={descriptionRef} style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
                     </div>
                 </div>
                 <div style={{ margin: "20px 0" }} className="form-group row">
-                    <label for="color" className="col-sm-2 col-form-label">Color:</label>
+                    <label htmlFor="color" className="col-sm-2 col-form-label">Color:</label>
                     <div className="col-sm-4">
                         <input ref={colorRef} style={{ height: "40px" }} type="color" className="form-control" id="color" placeholder="Color" />
                     </div>

@@ -1,9 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CreateNewSubject from './CreateNewSubject';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Subjects = () => {
     const [type, setType] = useState('list');
+
+    const [subjects, setSubjects] = useState([]);
+
+    useEffect(() => {
+        axios.get('/subject')
+            .then(res => {
+                setSubjects(res.data?.subjects);
+            })
+            .catch(err => {
+                toast.error(err?.message);
+            })
+    }, []);
 
     return (
         <div style={{ marginTop: "40px" }}>
@@ -24,21 +38,22 @@ const Subjects = () => {
                                     <tr>
                                         <th>ID</th>
                                         <th>Code</th>
-                                        <th>Subject Name</th>
+                                        <th style={{width:"18%"}}>Subject Name</th>
                                         <th>Assignee</th>
                                         <th>Status</th>
                                         <th style={{ width: "25%" }}>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {subjects?.map(item => 
                                     <tr className="alert" role="alert">
                                         <td className="border-bottom-0-custom">
-                                            50
+                                            {item?.id}
                                         </td>
                                         <td className="border-bottom-0-custom">
                                             <div className="pl-3">
                                                 <span>
-                                                    HTML-CSS
+                                                    {item?.code}
                                                 </span>
                                             </div>
                                         </td>
@@ -46,23 +61,23 @@ const Subjects = () => {
                                             <div className="d-flex align-items-center">
                                                 <div className="pl-3 email">
                                                     <span>
-                                                        HTML,CSS
+                                                        {item?.name}
                                                     </span>
-                                                    <span>Added: 01/03/2020</span>
+                                                    <span>Added: {item?.date_create}</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="border-bottom-0-custom">
-                                            <div className="img" style={{ backgroundImage: "url('https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ksjctjx7rrwocptprfdx.jpg')", marginLeft: "10px" }}></div>
-                                            <div className="pl-3 email">
-                                                <span>
-                                                    <Link to='/minhquang/profile'>
-                                                        Minh Quang
-                                                    </Link>
-                                                </span>
+                                            <div className="d-flex align-items-center">
+                                                <div className="pl-3 email">
+                                                    <span>
+                                                        Nguyen Minh Quang
+                                                    </span>
+                                                    <span>quangminhgnuyen@gmail.com</span>
+                                                </div>
                                             </div>
                                         </td>
-                                        <td className="status border-bottom-0-custom"><span className="active">Active</span></td>
+                                        <td className="status border-bottom-0-custom"><span className="active">{item?.status_name}</span></td>
                                         <td className="border-bottom-0-custom">
                                             <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
                                                 Update
@@ -71,61 +86,17 @@ const Subjects = () => {
                                                 Delete
                                             </button>
                                             <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
-                                                Active
+                                                Active/Deactive
                                             </button>
                                         </td>
-                                    </tr>
-                                    <tr className="alert" role="alert">
-                                        <td className="border-bottom-0-custom">
-                                            50
-                                        </td>
-                                        <td className="border-bottom-0-custom">
-                                            <div className="pl-3">
-                                                <span>
-                                                    HTML-CSS
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="border-bottom-0-custom">
-                                            <div className="d-flex align-items-center">
-                                                <div className="pl-3 email">
-                                                    <span>
-                                                        HTML,CSS
-                                                    </span>
-                                                    <span>Added: 01/03/2020</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="border-bottom-0-custom">
-                                            <div className="img" style={{ backgroundImage: "url('https://res.cloudinary.com/sttruyen/image/upload/v1694421667/ksjctjx7rrwocptprfdx.jpg')", marginLeft: "10px" }}></div>
-                                            <div className="pl-3 email">
-                                                <span>
-                                                    <Link to='/minhquang/profile'>
-                                                        Minh Quang
-                                                    </Link>
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="status border-bottom-0-custom"><span className="active">Active</span></td>
-                                        <td className="border-bottom-0-custom">
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
-                                                Update
-                                            </button>
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-danger">
-                                                Delete
-                                            </button>
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
-                                                Active
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    </tr>)}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </section>}
-            {type === 'create' && <CreateNewSubject />} 
+            {type === 'create' && <CreateNewSubject />}
         </div>
     )
 }

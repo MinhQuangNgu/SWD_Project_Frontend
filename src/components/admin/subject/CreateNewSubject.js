@@ -42,7 +42,7 @@ const CreateNewSubject = () => {
                 description: descriptionRef.current.value,
                 syllabus: syllabusRef.current.value,
                 gitlab_config: gitlabConfigRef.current.value,
-                manager_id: managerRef.current.value,
+                manager_id: managerRef.current.value || null,
                 status: issuesStatus || status[status.length - 1],
                 issues: issues
             };
@@ -60,7 +60,10 @@ const CreateNewSubject = () => {
             if(error){
                 return;
             }
-            
+            const data = await axios.post('/subject/create',{
+                ...subject
+            });
+            toast.success(data.data.message);
         }
         catch (err) {
             return toast.error(err?.message);
@@ -84,38 +87,38 @@ const CreateNewSubject = () => {
             <div>
                 <div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
+                        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                         <div className="col-sm-6">
                             <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
                         </div>
-                        <label for="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
+                        <label htmlFor="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
                         <div className="col-sm-3">
                             <input ref={codeRef} type="text" className="form-control" id="inputEmail3" placeholder="Code" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="description" className="col-sm-2 col-form-label">Description:</label>
+                        <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
                             <textarea ref={descriptionRef} type="text" className="form-control" id="description" placeholder="Description" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="Syllabus" className="col-sm-2 col-form-label">Syllabus:</label>
+                        <label htmlFor="Syllabus" className="col-sm-2 col-form-label">Syllabus:</label>
                         <div className="col-sm-10">
                             <textarea ref={syllabusRef} type="text" className="form-control" id="Syllabus" placeholder="Syllabus" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="Gitlab" className="col-sm-2 col-form-label">Gitlab Config:</label>
+                        <label htmlFor="Gitlab" className="col-sm-2 col-form-label">Gitlab Config:</label>
                         <div className="col-sm-10">
                             <textarea ref={gitlabConfigRef} type="text" className="form-control" id="Gitlab" placeholder="Gitlab Config" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputState" className="col-sm-2 col-form-label">Manager:</label>
+                        <label htmlFor="inputState" className="col-sm-2 col-form-label">Manager:</label>
                         <div className="col-sm-10">
                             <select ref={managerRef} id="inputState" className="form-control">
-                                <option selected>Choose...</option>
+                                <option value="" defaultChecked>Null</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -123,7 +126,7 @@ const CreateNewSubject = () => {
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputState" className="col-sm-2 col-form-label">Issues:</label>
+                        <label htmlFor="inputState" className="col-sm-2 col-form-label">Issues:</label>
                         <div className="col-sm-10 d-flex flex-wrap">
                             <button onClick={() => {
                                 setCreateIssue(true);
@@ -187,8 +190,8 @@ const CreateNewSubject = () => {
                                         if (e.target.checked) {
                                             setStatusIssue(item);
                                         }
-                                    }} className="form-check-input" type="radio" name="subjectStatus" id={item?.id} value={item?.id} defaultChecked />
-                                    <label className="form-check-label" for={item?.id}>
+                                    }} className="form-check-input" type="radio" name="subjectStatus" id={item?.id + "newSubject"} value={item?.id} defaultChecked />
+                                    <label className="form-check-label" htmlFor={item?.id + "newSubject"}>
                                         {item?.name}
                                     </label>
                                 </div>)}
