@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-
+import axios from 'axios';
 
 const CreateNewSubject = () => {
 
@@ -15,39 +15,65 @@ const CreateNewSubject = () => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [issues, setIssues] = useState([]);
-    const statusRef = useRef();
 
     const handleRemoveIssues = (index) => {
         const issueTemp = issues;
-        issueTemp.splice(index,1);
+        issueTemp.splice(index, 1);
         setIssues([...issueTemp]);
     }
 
-    const handleCreateNewSubject = async () =>  {
-        try{
+    const [status, setStatus] = useState([]);
+    const [issuesStatus, setStatusIssue] = useState(null)
+
+    useEffect(() => {
+        axios.get('/subject/status')
+            .then(res => {
+                setStatus(res.data?.status);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
+    }, []);
+
+    const handleCreateNewSubject = async () => {
+        try {
             const subject = {
-                name:nameRef.current.value,
-                code:codeRef.current.value,
-                description:descriptionRef.current.value,
-                syllabus:syllabusRef.current.value,
-                gitlab_config:gitlabConfigRef.current.value,
-                manager_id:managerRef.current.value,
-                status:statusRef.current.checked ? 'active' : 'inactive',
-                issues:issues
+                name: nameRef.current.value,
+                code: codeRef.current.value,
+                description: descriptionRef.current.value,
+                syllabus: syllabusRef.current.value,
+                gitlab_config: gitlabConfigRef.current.value,
+                manager_id: managerRef.current.value,
+                status: issuesStatus || status[status.length - 1],
+                issues: issues
             };
 
-            console.log(subject);
+            let error = false;
+
+            if (!subject.name) {
+                toast.error('Name is required');
+                error = true;
+            }
+            if (!subject.code) {
+                toast.error('Code is required');
+                error = true;
+            }
+            if(error){
+                return;
+            }
+            
         }
-        catch(err){
+        catch (err) {
             return toast.error(err?.message);
         }
     };
 
     const handleChangeStatus = (index) => {
         const issueTemp = issues;
-        issueTemp[index].status =  issueTemp[index]?.status === 'active' ? 'inactive' : 'active';
+        const newStatusString = issueTemp[index]?.status?.name === 'Active' ? 'Inactive' : 'Active';
+        const newStatus = status.filter(item => item.name == newStatusString);
+        issueTemp[index].status = newStatus[0];
         setIssues([...issueTemp]);
-    } 
+    }
 
 
     return (
@@ -120,14 +146,14 @@ const CreateNewSubject = () => {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {issues?.map((item,index) => (
+                                                                {issues?.map((item, index) => (
                                                                     <tr>
                                                                         <th>{item?.label}</th>
                                                                         <td>{item?.title}</td>
                                                                         <td>
                                                                             {item?.description}
                                                                         </td>
-                                                                        <td>{item?.status}</td>
+                                                                        <td>{item?.status?.name}</td>
                                                                         <td style={{ width: '30%' }}>
                                                                             <div className='d-flex'>
                                                                                 <button onClick={() => {
@@ -156,18 +182,16 @@ const CreateNewSubject = () => {
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
-                                <div className="form-check">
-                                    <input ref={statusRef} className="form-check-input" type="radio" name="subject" id="activeSubject" value="active" defaultChecked />
-                                    <label className="form-check-label" for="activeSubject">
-                                        Active
+                                {status?.map((item, index) => <div key={index + "issues"} style={{ marginRight: "10px" }} className="form-check">
+                                    <input onClick={(e) => {
+                                        if (e.target.checked) {
+                                            setStatusIssue(item);
+                                        }
+                                    }} className="form-check-input" type="radio" name="subjectStatus" id={item?.id} value={item?.id} defaultChecked />
+                                    <label className="form-check-label" for={item?.id}>
+                                        {item?.name}
                                     </label>
-                                </div>
-                                <div style={{ marginLeft: "20px" }} className="form-check">
-                                    <input className="form-check-input" type="radio" name="subject" id="inactiveSubject" value="inactive" />
-                                    <label className="form-check-label" for="inactiveSubject">
-                                        Inactive
-                                    </label>
-                                </div>
+                                </div>)}
                             </div>
                         </div>
                     </fieldset>

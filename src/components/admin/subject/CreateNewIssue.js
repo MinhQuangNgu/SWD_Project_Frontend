@@ -2,16 +2,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import Label from '../label/Label';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-const CreateNewIssue = ({setCreate,setIssues}) => {
-    const [label,setLabel] = useState(false);
+const CreateNewIssue = ({ setCreate, setIssues }) => {
+    const [label, setLabel] = useState(false);
 
     const [labels, setLabels] = useState([]);
-    const [reloadIssue,setReloadIssue] = useState(true);
+    const [reloadIssue, setReloadIssue] = useState(true);
+
+    const [status, setStatus] = useState([]);
 
     const nameRef = useRef();
     const descriptionRef = useRef();
-    const labelRef = useRef();
-    const statusActiveRef = useRef();
+    const labelRef = useRef()
+
+    const [statusIssue,setStatusIssue] = useState(null);
 
     useEffect(() => {
         axios.get('/subject/label')
@@ -23,22 +26,32 @@ const CreateNewIssue = ({setCreate,setIssues}) => {
             })
     }, [reloadIssue]);
 
+    useEffect(() => {
+        axios.get('/subject/status')
+            .then(res => {
+                setStatus(res.data?.status);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
+    }, []);
+
     const handleCreateNewIssues = async () => {
-        try{
+        try {
             const issue = {
-                title:nameRef.current.value,
-                description:descriptionRef.current.value,
-                label:labelRef.current.value,
-                status:statusActiveRef.current.checked ? 'active' : 'inactive'
+                title: nameRef.current.value,
+                description: descriptionRef.current.value,
+                label: labelRef.current.value,
+                status: statusIssue || status[status.length - 1]
             }
-            if(!issue.title){
+            if (!issue.title) {
                 toast.error("Title is required");
                 return;
             }
-            setIssues(pre => [...pre,issue]);
+            console.log(issue);
+            setIssues(pre => [...pre, issue]);
             setCreate(pre => !pre);
         }
-        catch(err){
+        catch (err) {
             return toast.error(err?.message);
         }
     }
@@ -90,18 +103,16 @@ const CreateNewIssue = ({setCreate,setIssues}) => {
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
-                                <div className="form-check">
-                                    <input ref={statusActiveRef} className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="active" defaultChecked />
-                                    <label className="form-check-label" for="gridRadios1">
-                                        Active
+                                {status?.map((item,index) => <div key={index + "issues"} style={{marginRight:"10px"}} className="form-check">
+                                    <input onClick={(e) => {
+                                        if(e.target.checked) {
+                                            setStatusIssue(item);
+                                        }
+                                    }} className="form-check-input" type="radio" name="gridRadios" id={item?.id} value={item?.id} defaultChecked />
+                                    <label className="form-check-label" for={item?.id}>
+                                        {item?.name}
                                     </label>
-                                </div>
-                                <div style={{ marginLeft: "20px" }} className="form-check">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="inactive" />
-                                    <label className="form-check-label" for="gridRadios2">
-                                        Inactive
-                                    </label>
-                                </div>
+                                </div>)}
                             </div>
                         </div>
                     </fieldset>
@@ -113,7 +124,7 @@ const CreateNewIssue = ({setCreate,setIssues}) => {
                     </div>
                 </div>
             </div>
-            {label && <Label setLabel={setLabel} setReloadIssue={setReloadIssue}/>}
+            {label && <Label setLabel={setLabel} setReloadIssue={setReloadIssue} />}
         </div>
     )
 }
