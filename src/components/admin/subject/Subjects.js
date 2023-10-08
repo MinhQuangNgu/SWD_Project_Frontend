@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import UpdateSubject from './UpdateSubject';
 import CreateNewSubject from './CreateNewSubject';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -8,6 +8,8 @@ const Subjects = () => {
     const [type, setType] = useState('list');
 
     const [subjects, setSubjects] = useState([]);
+
+    const [updateSubject,setUpdateSubject] = useState(null);
 
     const [reload,setReload] = useState(false);
 
@@ -48,6 +50,23 @@ const Subjects = () => {
                 <button onClick={() => {
                     setType('create');
                 }} className={`${type === 'create' ? 'active' : ''}`}>Create New Subject</button>
+                <button onClick={() => {
+                    setType('update');
+                }} style={updateSubject ? {
+                    display:"flex"
+                }:{
+                    display:"none"
+                }} className={`${type === 'update' ? 'active' : ''}`}>Update Subject ID = {updateSubject?.id}</button>
+                <button onClick={() => {
+                    setUpdateSubject(null);
+                    setType('list');
+                }} style={updateSubject ? {
+                    display:"flex",
+                    marginLeft:"-6px"
+                }:{
+                    display:"none",
+                    marginLeft:"-6px"
+                }}  >X</button>
             </div>
             {type === 'list' && <section style={{ marginTop: "0px" }} className="ftco-section">
                 <div className="row">
@@ -99,7 +118,10 @@ const Subjects = () => {
                                         </td>
                                         <td className="status border-bottom-0-custom"><span className="active">{item?.status_name}</span></td>
                                         <td className="border-bottom-0-custom">
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
+                                            <button onClick={() => {
+                                                setType('update');
+                                                setUpdateSubject(item);
+                                            }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
                                                 Update
                                             </button>
                                             <button onClick={() => {
@@ -119,6 +141,7 @@ const Subjects = () => {
                 </div>
             </section>}
             {type === 'create' && <CreateNewSubject />}
+            {type === 'update' && <UpdateSubject updateSubject={updateSubject}/>}
         </div>
     )
 }
