@@ -3,10 +3,12 @@ import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import UpdateIssue from './UpdateIssue';
 
 const CreateNewSubject = () => {
 
     const [createIssue, setCreateIssue] = useState(false);
+    const [updateIssue,setUpdateIssue] = useState(false);
 
     const nameRef = useRef();
     const codeRef = useRef();
@@ -162,7 +164,12 @@ const CreateNewSubject = () => {
                                                                                 <button onClick={() => {
                                                                                     handleRemoveIssues(index);
                                                                                 }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
-                                                                                <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
+                                                                                <button onClick={() => {
+                                                                                    setUpdateIssue({
+                                                                                        item,
+                                                                                        id:index
+                                                                                    });
+                                                                                }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
                                                                                 <button onClick={() => {
                                                                                     handleChangeStatus(index);
                                                                                 }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-secondary'>Deactive/active</button>
@@ -206,6 +213,7 @@ const CreateNewSubject = () => {
                 </div>
             </div>
             {createIssue && <CreateNewIssue setCreate={setCreateIssue} setIssues={setIssues} />}
+            {updateIssue && <UpdateIssue setUpdate={setUpdateIssue} setIssues={setIssues} updateIssue={updateIssue} issues={issues}/>}
         </div>
     )
 }

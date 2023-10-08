@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import CreateNewLabel from './CreateNewLabel';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import UpdateLabel from './UpdateLabel';
 
 const Label = ({ setLabel ,setReloadIssue}) => {
 
     const [createLabel, setCreateLabel] = useState(false);
+    const [updateLabel,setUpdateLabel] = useState(false);
     const [reload,setReload] = useState(true);
     const [labels, setLabels] = useState([]);
     useEffect(() => {
@@ -87,7 +89,9 @@ const Label = ({ setLabel ,setReloadIssue}) => {
                                                                 <td style={{ width: '20%' }}>
                                                                     <div className='d-flex'>
                                                                         <button onClick={() => {handleDeleteLabel(item.id)}} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
-                                                                        <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
+                                                                        <button onClick={() => {
+                                                                            setUpdateLabel(item);
+                                                                        }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -104,6 +108,7 @@ const Label = ({ setLabel ,setReloadIssue}) => {
                 </div>
             </div>
             {createLabel && <CreateNewLabel setCreateLabel={setCreateLabel} setReload={setReload}/>}
+            {updateLabel && <UpdateLabel setUpdateLabel={setUpdateLabel} setReload={setReload} updateLabel={updateLabel}/>}
         </div>
     )
 }

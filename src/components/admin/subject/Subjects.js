@@ -9,6 +9,8 @@ const Subjects = () => {
 
     const [subjects, setSubjects] = useState([]);
 
+    const [reload,setReload] = useState(false);
+
     useEffect(() => {
         axios.get('/subject')
             .then(res => {
@@ -17,7 +19,25 @@ const Subjects = () => {
             .catch(err => {
                 toast.error(err?.message);
             })
-    }, []);
+    }, [reload]);
+
+    const handleDeleteSubject = (id) => {
+        const checked = window.confirm('Are you sure you want to delete this subject');
+        if(checked) {
+            handleDeleteSubjectR(id);
+        }
+    }
+
+    const handleDeleteSubjectR = async (id) => {
+        try{
+            const data = await axios.delete(`/subject/${id}`);
+            toast.success(data.data.message);
+            setReload(pre => !pre);
+        }
+        catch(err){
+            return toast.error(err?.message);
+        }
+    }
 
     return (
         <div style={{ marginTop: "40px" }}>
@@ -82,7 +102,9 @@ const Subjects = () => {
                                             <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
                                                 Update
                                             </button>
-                                            <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-danger">
+                                            <button onClick={() => {
+                                                handleDeleteSubject(item?.id);
+                                            }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-danger">
                                                 Delete
                                             </button>
                                             <button style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
