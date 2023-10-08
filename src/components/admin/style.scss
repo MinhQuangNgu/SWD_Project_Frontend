@@ -289,7 +289,7 @@
 // Account css
 .ftco-section {
     margin: 30px 0;
-    border:2px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
     -moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
     box-shadow: 0px 5px 12px -12px black;
@@ -316,7 +316,7 @@
 
 .table thead th {
     border: none;
-    padding: 10px 5px; 
+    padding: 10px 5px;
     font-size: 13px;
     font-weight: 500;
     color: gray;
@@ -463,4 +463,194 @@
 
 .checkbox-primary input:checked~.checkmark:after {
     color: #40bfc1;
+}
+
+.btn_subject_manager {
+    &>button {
+        border: none;
+        padding: 5px 15px;
+        margin: 0 2px;
+        font-size: 13px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: white;
+
+        &.active {
+            background-color: #009CFF;
+            color: white;
+        }
+    }
+}
+
+.subject_create {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.subject_c_title {
+    margin-top: 10px;
+
+    &>h1 {
+        font-size: 25px;
+    }
+}
+
+.issue_card_item {
+    min-width: 170px;
+    padding: 5px 15px;
+    min-height: 30px;
+    max-width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.issue_card_btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+}
+
+.issue_card_item:hover .issue_card_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &>button {
+        height: 30px;
+        margin: 0 3px;
+        font-size: 12px;
+    }
+}
+
+.add_issues {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_issues_form {
+    width: 50%;
+    min-height: 40%;
+    max-height: 80%;
+    overflow: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    position: relative;
+}
+
+.add_issues_header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.add_issues_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 7px;
+}
+
+.add_issues_form_input {
+    margin-top: 10px;
+}
+
+
+.gradient-custom-1 {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.intro {
+    margin-top: 20px;
+
+    table td,
+    table th {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    tbody td {
+        font-weight: 500;
+        color: #999999;
+    }
+}
+
+.subject_label_m {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .label_management {
+        width: 50%;
+        height: 70%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        position: relative;
+    }
+
+    .create-new-label {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .create-label {
+            width: 40%;
+            max-height: 70%;
+            overflow: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            position: relative;
+        }
+    }
 }

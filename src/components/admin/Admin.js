@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './style.scss'
 import { Link, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
-import Subjects from './Subjects'
+import Subjects from './subject/Subjects'
 
 
 const Admin = () => {
@@ -31,8 +31,8 @@ const Admin = () => {
               </div>
             </div>
             <div style={{ minHeight: "50vh" }} className="navbar-nav w-100">
-              <Link to="/admin/manager/dashboard" className={`nav-item nav-link ${type === 'dashboard' && 'active'}`}><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
-              <Link to="/admin/manager/recipes" className={`nav-item nav-link ${type === 'recipes' && 'active'}`}><i className="fa fa-keyboard me-2"></i>Subject List</Link>
+              <Link to="/admin/management/dashboard" className={`nav-item nav-link ${type === 'dashboard' && 'active'}`}><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
+              <Link to="/admin/management/subject" className={`nav-item nav-link ${type === 'subject' && 'active'}`}><i className="fa fa-keyboard me-2"></i>Subject</Link>
             </div>
           </nav>
         </div>
@@ -63,7 +63,7 @@ const Admin = () => {
             </div>
           </nav>
           {type === 'dashboard' && <Dashboard />}
-          {type === 'recipes' && <Subjects />}
+          {type === 'subject' && <Subjects />}
         </div>
       </div>
       <div href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="fa fa-arrow-up"></i></div>
