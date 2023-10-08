@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CreateNewSubject from './CreateNewSubject';
-import CreateNewIssue from './CreateNewIssue';
 
 const Subjects = () => {
     const [type, setType] = useState('list');

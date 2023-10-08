@@ -2,13 +2,13 @@ import './App.scss';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   adminRouter,
-  publicRouter,
-  userRouter,
+  publicRouter
 } from "./routers/route";
 import { createContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isSuccess } from "./redux/slice/auth";
 import jwt_decode from "jwt-decode";
+import { ToastContainer } from "react-toastify";
 export const UserContext = createContext();
 function App() {
   const [store, setStore] = useState({ rule: "[ROLE_SALE]" });
@@ -80,6 +80,10 @@ function App() {
                 );
               })}
           </Routes>
+          <ToastContainer
+            autoClose={1500}
+            style={{ fontSize: "12px" }}
+          />
         </div>
       </Router>
     </UserContext.Provider>

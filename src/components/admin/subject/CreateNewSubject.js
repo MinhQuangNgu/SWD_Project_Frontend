@@ -1,10 +1,54 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import CreateNewIssue from './CreateNewIssue';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 const CreateNewSubject = () => {
 
-    const [createIssue,setCreateIssue] = useState(false);
+    const [createIssue, setCreateIssue] = useState(false);
+
+    const nameRef = useRef();
+    const codeRef = useRef();
+    const descriptionRef = useRef();
+    const syllabusRef = useRef();
+    const gitlabConfigRef = useRef();
+    const managerRef = useRef();
+    const [issues, setIssues] = useState([]);
+    const statusRef = useRef();
+
+    const handleRemoveIssues = (index) => {
+        const issueTemp = issues;
+        issueTemp.splice(index,1);
+        setIssues([...issueTemp]);
+    }
+
+    const handleCreateNewSubject = async () =>  {
+        try{
+            const subject = {
+                name:nameRef.current.value,
+                code:codeRef.current.value,
+                description:descriptionRef.current.value,
+                syllabus:syllabusRef.current.value,
+                gitlab_config:gitlabConfigRef.current.value,
+                manager_id:managerRef.current.value,
+                status:statusRef.current.checked ? 'active' : 'inactive',
+                issues:issues
+            };
+
+            console.log(subject);
+        }
+        catch(err){
+            return toast.error(err?.message);
+        }
+    };
+
+    const handleChangeStatus = (index) => {
+        const issueTemp = issues;
+        issueTemp[index].status =  issueTemp[index]?.status === 'active' ? 'inactive' : 'active';
+        setIssues([...issueTemp]);
+    } 
+
 
     return (
         <div style={{ marginBottom: '50px' }} className='subject_create'>
@@ -16,35 +60,35 @@ const CreateNewSubject = () => {
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                         <div className="col-sm-6">
-                            <input type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                            <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
                         </div>
                         <label for="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
                         <div className="col-sm-3">
-                            <input type="text" className="form-control" id="inputEmail3" placeholder="Code" />
+                            <input ref={codeRef} type="text" className="form-control" id="inputEmail3" placeholder="Code" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
-                            <textarea type="text" className="form-control" id="description" placeholder="Description" />
+                            <textarea ref={descriptionRef} type="text" className="form-control" id="description" placeholder="Description" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="Syllabus" className="col-sm-2 col-form-label">Syllabus:</label>
                         <div className="col-sm-10">
-                            <textarea type="text" className="form-control" id="Syllabus" placeholder="Syllabus" />
+                            <textarea ref={syllabusRef} type="text" className="form-control" id="Syllabus" placeholder="Syllabus" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="Gitlab" className="col-sm-2 col-form-label">Gitlab Config:</label>
                         <div className="col-sm-10">
-                            <textarea type="text" className="form-control" id="Gitlab" placeholder="Gitlab Config" />
+                            <textarea ref={gitlabConfigRef} type="text" className="form-control" id="Gitlab" placeholder="Gitlab Config" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="inputState" className="col-sm-2 col-form-label">Manager:</label>
                         <div className="col-sm-10">
-                            <select id="inputState" className="form-control">
+                            <select ref={managerRef} id="inputState" className="form-control">
                                 <option selected>Choose...</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -68,27 +112,35 @@ const CreateNewSubject = () => {
                                                         <table className="table mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">ID</th>
-                                                                    <th scope="col">Name</th>
+                                                                    <th style={{ width: "5%" }} scope="col">Label</th>
+                                                                    <th style={{ width: "12%" }} scope="col">Title</th>
                                                                     <th scope="col">Description</th>
                                                                     <th scope="col">Status</th>
                                                                     <th scope="col">Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <th scope="row" style={{ color: "#666666" }}>1</th>
-                                                                    <td>Issues 1</td>
-                                                                    <td>
-                                                                        description
-                                                                    </td>
-                                                                    <td>Active</td>
-                                                                    <td style={{ width: '10%' }}>
-                                                                        <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
-                                                                        <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
-                                                                        <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-secondary'>Deactive/active</button>
-                                                                    </td>
-                                                                </tr>
+                                                                {issues?.map((item,index) => (
+                                                                    <tr>
+                                                                        <th>{item?.label}</th>
+                                                                        <td>{item?.title}</td>
+                                                                        <td>
+                                                                            {item?.description}
+                                                                        </td>
+                                                                        <td>{item?.status}</td>
+                                                                        <td style={{ width: '30%' }}>
+                                                                            <div className='d-flex'>
+                                                                                <button onClick={() => {
+                                                                                    handleRemoveIssues(index);
+                                                                                }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
+                                                                                <button style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
+                                                                                <button onClick={() => {
+                                                                                    handleChangeStatus(index);
+                                                                                }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-secondary'>Deactive/active</button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -105,14 +157,14 @@ const CreateNewSubject = () => {
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
                                 <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="active" defaultChecked />
-                                    <label className="form-check-label" for="gridRadios1">
+                                    <input ref={statusRef} className="form-check-input" type="radio" name="subject" id="activeSubject" value="active" defaultChecked />
+                                    <label className="form-check-label" for="activeSubject">
                                         Active
                                     </label>
                                 </div>
                                 <div style={{ marginLeft: "20px" }} className="form-check">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
-                                    <label className="form-check-label" for="gridRadios2">
+                                    <input className="form-check-input" type="radio" name="subject" id="inactiveSubject" value="inactive" />
+                                    <label className="form-check-label" for="inactiveSubject">
                                         Inactive
                                     </label>
                                 </div>
@@ -121,12 +173,12 @@ const CreateNewSubject = () => {
                     </fieldset>
                     <div className="form-group row">
                         <div className="col-sm-12 d-flex justify-content-center">
-                            <button type="submit" className="btn btn-primary">Create new subject</button>
+                            <button onClick={handleCreateNewSubject} type="submit" className="btn btn-primary">Create new subject</button>
                         </div>
                     </div>
                 </div>
             </div>
-            {createIssue && <CreateNewIssue setCreate={setCreateIssue}/>}
+            {createIssue && <CreateNewIssue setCreate={setCreateIssue} setIssues={setIssues} />}
         </div>
     )
 }

@@ -1,7 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Label from '../label/Label';
-const CreateNewIssue = ({setCreate}) => {
+import axios from 'axios';
+import { toast } from 'react-toastify';
+const CreateNewIssue = ({setCreate,setIssues}) => {
     const [label,setLabel] = useState(false);
+
+    const [labels, setLabels] = useState([]);
+    const [reloadIssue,setReloadIssue] = useState(true);
+
+    const nameRef = useRef();
+    const descriptionRef = useRef();
+    const labelRef = useRef();
+    const statusActiveRef = useRef();
+
+    useEffect(() => {
+        axios.get('/subject/label')
+            .then(res => {
+                setLabels(res.data?.results);
+            })
+            .catch(err => {
+                toast.error(err?.message);
+            })
+    }, [reloadIssue]);
+
+    const handleCreateNewIssues = async () => {
+        try{
+            const issue = {
+                title:nameRef.current.value,
+                description:descriptionRef.current.value,
+                label:labelRef.current.value,
+                status:statusActiveRef.current.checked ? 'active' : 'inactive'
+            }
+            if(!issue.title){
+                toast.error("Title is required");
+                return;
+            }
+            setIssues(pre => [...pre,issue]);
+            setCreate(pre => !pre);
+        }
+        catch(err){
+            return toast.error(err?.message);
+        }
+    }
+
     return (
         <div className='add_issues'>
             <div className="add_issues_form">
@@ -15,15 +56,15 @@ const CreateNewIssue = ({setCreate}) => {
                 </div>
                 <div className='add_issues_form_input'>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label for="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
+                        <label for="inputEmail3" className="col-sm-2 col-form-label">Title*:</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                            <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Title" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label for="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
-                            <textarea style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
+                            <textarea ref={descriptionRef} style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
@@ -31,10 +72,10 @@ const CreateNewIssue = ({setCreate}) => {
                         <div className="col-sm-10">
                             <div className='row'>
                                 <div className='col-sm-8'>
-                                    <select style={{ width: "100%" }} className="form-select" aria-label="Label">
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select ref={labelRef} style={{ width: "100%" }} className="form-select" aria-label="Label">
+                                        {labels?.map(item => (
+                                            <option value={item?.id}>{item?.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className='col-sm-4'>
@@ -50,13 +91,13 @@ const CreateNewIssue = ({setCreate}) => {
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
                                 <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="active" defaultChecked />
+                                    <input ref={statusActiveRef} className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="active" defaultChecked />
                                     <label className="form-check-label" for="gridRadios1">
                                         Active
                                     </label>
                                 </div>
                                 <div style={{ marginLeft: "20px" }} className="form-check">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
+                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="inactive" />
                                     <label className="form-check-label" for="gridRadios2">
                                         Inactive
                                     </label>
@@ -65,14 +106,14 @@ const CreateNewIssue = ({setCreate}) => {
                         </div>
                     </fieldset>
                     <div style={{ marginTop: '10px' }} className='d-flex justify-content-center'>
-                        <button style={{ fontSize: "14px" }} className='btn btn-primary'>Create New Issues</button>
+                        <button onClick={handleCreateNewIssues} style={{ fontSize: "14px" }} className='btn btn-primary'>Create New Issues</button>
                         <button onClick={() => {
                             setCreate(false);
                         }} style={{ fontSize: "14px", marginLeft: "10px" }} className='btn btn-secondary'>Close</button>
                     </div>
                 </div>
             </div>
-            {label && <Label setLabel={setLabel}/>}
+            {label && <Label setLabel={setLabel} setReloadIssue={setReloadIssue}/>}
         </div>
     )
 }

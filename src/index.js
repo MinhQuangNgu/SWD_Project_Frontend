@@ -11,6 +11,9 @@ import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
+axios.defaults.baseURL = "http://localhost:5000";
 render(
   <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
