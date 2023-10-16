@@ -122,7 +122,7 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
     return (
         <div style={{ marginBottom: '50px' }} className='subject_create'>
             <div className='d-flex justify-content-center subject_c_title'>
-                <h1><i>Create new subject</i></h1>
+                <h1><i>Update subject</i></h1>
             </div>
             <div>
                 <div>

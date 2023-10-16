@@ -135,7 +135,7 @@ const CreateNewSubject = ({setReloadSubject}) => {
                             </select>
                         </div>
                     </div>
-                    <div style={{ margin: "20px 0" }} className="form-group row">
+                    {/* <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="inputState" className="col-sm-2 col-form-label">Issues:</label>
                         <div className="col-sm-10 d-flex flex-wrap">
                             <button onClick={() => {
@@ -195,7 +195,7 @@ const CreateNewSubject = ({setReloadSubject}) => {
                                 </div>
                             </section>
                         </div>
-                    </div>
+                    </div> */}
                     <fieldset className="form-group">
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
