@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import UpdateIssue from './UpdateIssue';
 
-const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
+const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const [createIssue, setCreateIssue] = useState(false);
     const [updateIssue, setUpdateIssue] = useState(false);
+    const [issueExpand, setIssuesExpand] = useState(false);
 
     const [subject, setSubject] = useState({});
 
@@ -18,7 +19,7 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [issues, setIssues] = useState([]);
-    const [tempIssues,setTempIssues] = useState([]);
+    const [tempIssues, setTempIssues] = useState([]);
 
     const handleRemoveIssues = (index) => {
         const issueTemp = issues;
@@ -57,7 +58,7 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
     }, [updateSubject]);
 
     useEffect(() => {
-        if(tempIssues && status){
+        if (tempIssues && status) {
             console.log(tempIssues);
             console.log(status);
             let temp = tempIssues;
@@ -65,13 +66,13 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
                 let tempStatus = status.filter(i => i.id == item.status_id);
                 return {
                     ...item,
-                    status:tempStatus[0],
-                    label:item?.type_id
+                    status: tempStatus[0],
+                    label: item?.type_id
                 }
             });
             setIssues([...temp]);
         }
-    },[tempIssues,status]);
+    }, [tempIssues, status]);
 
     const handleUpdateSubject = async () => {
         try {
@@ -171,7 +172,10 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
                             <button onClick={() => {
                                 setCreateIssue(true);
                             }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>Add New</button>
-                            <section className="intro w-100">
+                            <button onClick={() => {
+                                setIssuesExpand(pre => !pre);
+                            }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>{issueExpand ? "Hide" : "Expands"}</button>
+                            {issueExpand && <section className="intro w-100">
                                 <div className="gradient-custom-1">
                                     <div className="mask d-flex align-items-center h-100">
                                         <div className="container">
@@ -223,7 +227,7 @@ const UpdateSubject = ({ updateSubject,setReloadSubject }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </section>}
                         </div>
                     </div>
                     <fieldset className="form-group">
