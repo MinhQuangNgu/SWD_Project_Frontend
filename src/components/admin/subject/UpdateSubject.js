@@ -3,9 +3,10 @@ import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import UpdateIssue from './UpdateIssue';
-import SubjectController from '../../../controller/admin/SubjectController';
-import StatusController from '../../../controller/common/StatusController';
-
+import SubjectController from '../../../controller/SubjectController';
+import StatusController from '../../../controller/StatusController';
+import UserController from '../../../controller/UserController';
+import Select from 'react-select';
 const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const [createIssue, setCreateIssue] = useState(false);
     const [updateIssue, setUpdateIssue] = useState(false);
@@ -29,6 +30,8 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     }
 
     const [status, setStatus] = useState([]);
+    const [managers, setManagers] = useState([]);
+    const [managerid, setManagerId] = useState({});
     const [issuesStatus, setStatusIssue] = useState(null)
 
 
@@ -48,20 +51,35 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                 .catch(err => {
                     toast.error(err?.message);
                 })
+
+        }
+    }, [updateSubject]);
+    useEffect(() => {
+        if(subject?.code){
             StatusController.getAllStatus()
                 .then(res => {
                     setStatus(res.data?.status);
                 }).catch(err => {
                     toast.error(err?.message);
                 })
-
+            UserController.getAllManager()
+                .then(res => {
+                    const data = res.data?.managers?.map(item => {
+                        return {
+                            value: item?.id,
+                            label: item?.email
+                        }
+                    })
+                    setManagers(data);
+                    const managerDefault = data.find(item => item.value == subject?.manager_id);
+                    setManagerId(managerDefault);
+                    managerRef.current = data[0];
+                })
         }
-    }, [updateSubject]);
+    },[subject]);
 
     useEffect(() => {
         if (tempIssues && status) {
-            console.log(tempIssues);
-            console.log(status);
             let temp = tempIssues;
             temp = temp.map(item => {
                 let tempStatus = status.filter(i => i.id == item.status_id);
@@ -83,7 +101,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                 description: descriptionRef.current.value,
                 syllabus: syllabusRef.current.value,
                 gitlab_config: gitlabConfigRef.current.value,
-                manager_id: managerRef.current.value || null,
+                manager_id: managerid?.value || null,
                 status: issuesStatus || status[status.length - 1],
                 issues: issues
             };
@@ -101,7 +119,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
             if (error) {
                 return;
             }
-            const data = await SubjectController.handleUpdateSubject(subject?.id,tempSubject);
+            const data = await SubjectController.handleUpdateSubject(subject?.id, tempSubject);
             toast.success(data.data.message);
             setReloadSubject(pre => !pre);
         }
@@ -157,12 +175,14 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="inputState" className="col-sm-2 col-form-label">Manager:</label>
                         <div className="col-sm-10">
-                            <select ref={managerRef} id="inputState" className="form-control">
-                                <option value="" defaultChecked>Null</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
+                            {managerid?.value && <Select
+                                className="basic-single"
+                                classNamePrefix="select"
+                                defaultValue={managerid}
+                                name="color"
+                                options={managers}
+                                onChange={(e) => setManagerId(e)}
+                            />}
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">

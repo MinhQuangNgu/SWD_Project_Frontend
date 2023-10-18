@@ -3,13 +3,14 @@ import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import UpdateIssue from './UpdateIssue';
-import StatusController from '../../../controller/common/StatusController';
-import SubjectController from '../../../controller/admin/SubjectController';
-
-const CreateNewSubject = ({setReloadSubject}) => {
+import StatusController from '../../../controller/StatusController';
+import SubjectController from '../../../controller/SubjectController';
+import UserController from '../../../controller/UserController';
+import Select from 'react-select';
+const CreateNewSubject = ({ setReloadSubject }) => {
 
     const [createIssue, setCreateIssue] = useState(false);
-    const [updateIssue,setUpdateIssue] = useState(false);
+    const [updateIssue, setUpdateIssue] = useState(false);
 
     const nameRef = useRef();
     const codeRef = useRef();
@@ -18,6 +19,8 @@ const CreateNewSubject = ({setReloadSubject}) => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [issues, setIssues] = useState([]);
+    const [managers, setManagers] = useState([])
+    const [manager_id,setManagerId] = useState({});
 
     const handleRemoveIssues = (index) => {
         const issueTemp = issues;
@@ -35,6 +38,17 @@ const CreateNewSubject = ({setReloadSubject}) => {
             }).catch(err => {
                 toast.error(err?.message);
             })
+        UserController.getAllManager()
+            .then(res => {
+                const data = res.data?.managers?.map(item => {
+                    return {
+                        value: item?.id,
+                        label: item?.email
+                    }
+                })
+                setManagers(data);
+                setManagerId(data[0]);
+            })
     }, []);
 
     const handleCreateNewSubject = async () => {
@@ -45,7 +59,7 @@ const CreateNewSubject = ({setReloadSubject}) => {
                 description: descriptionRef.current.value,
                 syllabus: syllabusRef.current.value,
                 gitlab_config: gitlabConfigRef.current.value,
-                manager_id: managerRef.current.value || null,
+                manager_id: manager_id?.value|| null,
                 status: issuesStatus || status[status.length - 1],
                 issues: issues
             };
@@ -56,13 +70,13 @@ const CreateNewSubject = ({setReloadSubject}) => {
                 toast.error('Name is required');
                 error = true;
             }
-            
+
             if (!subject.code) {
                 toast.error('Code is required');
                 error = true;
             }
 
-            if(error){
+            if (error) {
                 return;
             }
             const data = await SubjectController.handleCreateNewSubject(subject);
@@ -73,7 +87,6 @@ const CreateNewSubject = ({setReloadSubject}) => {
             syllabusRef.current.value = '';
             gitlabConfigRef.current.value = '';
             setIssues([]);
-            managerRef.current.value = null;
             setReloadSubject(pre => !pre);
         }
         catch (err) {
@@ -128,12 +141,14 @@ const CreateNewSubject = ({setReloadSubject}) => {
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="inputState" className="col-sm-2 col-form-label">Manager:</label>
                         <div className="col-sm-10">
-                            <select ref={managerRef} id="inputState" className="form-control">
-                                <option value="" defaultChecked>Null</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
+                            {managers.length > 0 && <Select
+                                className="basic-single"
+                                classNamePrefix="select"
+                                defaultValue={managers[0]}
+                                name="color"
+                                options={managers}
+                                onChange={(e) => setManagerId(e)}
+                            />}
                         </div>
                     </div>
                     {/* <div style={{ margin: "20px 0" }} className="form-group row">
@@ -222,7 +237,7 @@ const CreateNewSubject = ({setReloadSubject}) => {
                 </div>
             </div>
             {createIssue && <CreateNewIssue setCreate={setCreateIssue} setIssues={setIssues} />}
-            {updateIssue && <UpdateIssue setUpdate={setUpdateIssue} setIssues={setIssues} updateIssue={updateIssue} issues={issues}/>}
+            {updateIssue && <UpdateIssue setUpdate={setUpdateIssue} setIssues={setIssues} updateIssue={updateIssue} issues={issues} />}
         </div>
     )
 }

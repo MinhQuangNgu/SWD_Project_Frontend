@@ -4,7 +4,7 @@ import CreateNewSubject from './CreateNewSubject';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LabelList from '../label/LabelList';
-import SubjectController from '../../../controller/admin/SubjectController';
+import SubjectController from '../../../controller/SubjectController';
 
 const Subjects = () => {
     const [type, setType] = useState('list');
@@ -198,9 +198,9 @@ const Subjects = () => {
                                                 <div className="d-flex align-items-center">
                                                     <div className="pl-3 email">
                                                         <span>
-                                                            Nguyen Minh Quang
+                                                            {item?.username}
                                                         </span>
-                                                        <span>quangminhgnuyen@gmail.com</span>
+                                                        <span>{item?.email}</span>
                                                     </div>
                                                 </div>
                                             </td>

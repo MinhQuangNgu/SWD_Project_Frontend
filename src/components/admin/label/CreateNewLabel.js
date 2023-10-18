@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import LabelController from '../../../controller/common/LabelController';
+import LabelController from '../../../controller/LabelController';
 
 const CreateNewLabel = ({ setCreateLabel,setReload }) => {
 
