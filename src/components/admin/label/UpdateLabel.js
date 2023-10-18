@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef } from 'react'
 import { toast } from 'react-toastify';
+import LabelController from '../../../controller/common/LabelController';
 
 const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
     const namRef = useRef();
@@ -20,7 +21,7 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
             if(!namRef.current.value){
                 return toast.error("Name can not be blank");
             }
-            const data = await axios.put(`/subject/label/${updateLabel?.id}`,{
+            const data = await LabelController.handleUpdateLabel(updateLabel?.id,{
                 name:namRef.current.value,
                 description: descriptionRef.current.value,
                 color:colorRef.current.value

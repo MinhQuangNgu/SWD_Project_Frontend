@@ -3,6 +3,7 @@ import CreateNewLabel from './CreateNewLabel';
 import UpdateLabel from './UpdateLabel';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import LabelController from '../../../controller/common/LabelController';
 
 const LabelList = () => {
     const [createLabel, setCreateLabel] = useState(false);
@@ -10,7 +11,7 @@ const LabelList = () => {
     const [reload, setReload] = useState(true);
     const [labels, setLabels] = useState([]);
     useEffect(() => {
-        axios.get('/subject/label')
+        LabelController.handleGetAllLabels()
             .then(res => {
                 setLabels(res.data?.results);
             })
@@ -27,12 +28,12 @@ const LabelList = () => {
     }
     const handleDeleteLabelR = async (id) => {
         try {
-            const data = await axios.delete(`/subject/label/${id}`);
+            const data = await LabelController.handleDeleteLabel(id);
             toast.success(data.data.message);
             setReload(pre => !pre);
         }
         catch (err) {
-            toast.error(err?.message);
+            toast.error("Label was used by some issues!");
         }
     }
     return (

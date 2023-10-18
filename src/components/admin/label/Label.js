@@ -3,6 +3,7 @@ import CreateNewLabel from './CreateNewLabel';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import UpdateLabel from './UpdateLabel';
+import LabelController from '../../../controller/common/LabelController';
 
 const Label = ({ setLabel ,setReloadIssue}) => {
 
@@ -32,7 +33,7 @@ const Label = ({ setLabel ,setReloadIssue}) => {
     }
     const handleDeleteLabelR = async (id) => {
         try {
-            const data = await axios.delete(`/subject/label/${id}`);
+            const data = await LabelController.handleDeleteLabel(id);
             toast.success(data.data.message);
             setReload(pre => !pre);
         }

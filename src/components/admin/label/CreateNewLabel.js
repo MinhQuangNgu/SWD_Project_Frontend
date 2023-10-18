@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import LabelController from '../../../controller/common/LabelController';
 
 const CreateNewLabel = ({ setCreateLabel,setReload }) => {
 
@@ -13,7 +14,7 @@ const CreateNewLabel = ({ setCreateLabel,setReload }) => {
             if(!namRef.current.value){
                 return toast.error("Name can not be blank");
             }
-            const data = await axios.post('/subject/label/create',{
+            const data = await LabelController.handleCreateNewLabel({
                 name:namRef.current.value,
                 description: descriptionRef.current.value,
                 color:colorRef.current.value

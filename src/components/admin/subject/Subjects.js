@@ -4,6 +4,7 @@ import CreateNewSubject from './CreateNewSubject';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LabelList from '../label/LabelList';
+import SubjectController from '../../../controller/admin/SubjectController';
 
 const Subjects = () => {
     const [type, setType] = useState('list');
@@ -14,17 +15,17 @@ const Subjects = () => {
 
     const [reload, setReload] = useState(false);
 
-    const [idorder,setIdOrder] = useState('desc');
-    const [codeOrder,setCodeOrder] = useState('desc');
-    const [subjectOrder,setSubjectOrder] = useState('desc');
-    const [managerOrder,setManagerOrder] = useState('desc');
-    const [status,setStatus] = useState('all');
+    const [idorder, setIdOrder] = useState('desc');
+    const [codeOrder, setCodeOrder] = useState('desc');
+    const [subjectOrder, setSubjectOrder] = useState('desc');
+    const [managerOrder, setManagerOrder] = useState('desc');
+    const [status, setStatus] = useState('all');
 
     useEffect(() => {
-        axios.get('/subject')
-            .then(res => {
-                setSubjects(res.data?.subjects);
-            })
+        const data = SubjectController.getSubjectList();
+        data.then(res => {
+            setSubjects(res.data?.subjects);
+        })
             .catch(err => {
                 toast.error(err?.message);
             })
@@ -33,30 +34,22 @@ const Subjects = () => {
     const handleDeleteSubject = (id) => {
         const checked = window.confirm('Are you sure you want to delete this subject');
         if (checked) {
-            handleDeleteSubjectR(id);
+            SubjectController.handleDeleteSubjectR(id).then(res => {
+                toast.success(res?.data?.message);
+                setReload(pre => !pre);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
         }
     }
-
-    const handleDeleteSubjectR = async (id) => {
-        try {
-            const data = await axios.delete(`/subject/${id}`);
-            toast.success(data.data.message);
-            setReload(pre => !pre);
-        }
-        catch (err) {
-            return toast.error(err?.message);
-        }
-    }
-
-    const handleSetStatus = async (id) => {
-        try {
-            const data = await axios.post(`/subject/c_status/${id}`);
-            toast.success(data.data.message);
-            setReload(pre => !pre);
-        }
-        catch (err) {
-            return toast.error(err?.message);
-        }
+    const handleSetStatus = (id) => {
+        SubjectController.handleSetStatus(id)
+            .then(res => {
+                toast.success(res?.data?.message);
+                setReload(pre => !pre);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
     }
 
     return (
@@ -99,7 +92,7 @@ const Subjects = () => {
                                         <th><div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                             ID
                                             <div style={{ marginLeft: "10px" }}>
-                                                <div style={{ height: '10px', cursor: "pointer",marginBottom:"3px" }}>
+                                                <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>
@@ -114,7 +107,7 @@ const Subjects = () => {
                                         <th><div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                             Code
                                             <div style={{ marginLeft: "10px" }}>
-                                                <div style={{ height: '10px', cursor: "pointer",marginBottom:"3px" }}>
+                                                <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>
@@ -130,7 +123,7 @@ const Subjects = () => {
                                             <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                                 Subject Name
                                                 <div style={{ marginLeft: "10px" }}>
-                                                    <div style={{ height: '10px', cursor: "pointer",marginBottom:"3px" }}>
+                                                    <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                         </svg>
@@ -147,7 +140,7 @@ const Subjects = () => {
                                             <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                                 Manager
                                                 <div style={{ marginLeft: "10px" }}>
-                                                    <div style={{ height: '10px', cursor: "pointer",marginBottom:"3px" }}>
+                                                    <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                         </svg>
@@ -163,7 +156,7 @@ const Subjects = () => {
                                         <th><div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                             Status
                                             <div style={{ marginLeft: "10px" }}>
-                                                <div style={{ height: '10px', cursor: "pointer",marginBottom:"3px" }}>
+                                                <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>

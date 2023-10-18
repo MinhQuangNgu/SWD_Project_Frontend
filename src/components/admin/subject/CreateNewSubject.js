@@ -2,8 +2,9 @@ import React, { useRef, useState } from 'react'
 import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import UpdateIssue from './UpdateIssue';
+import StatusController from '../../../controller/common/StatusController';
+import SubjectController from '../../../controller/admin/SubjectController';
 
 const CreateNewSubject = ({setReloadSubject}) => {
 
@@ -28,7 +29,7 @@ const CreateNewSubject = ({setReloadSubject}) => {
     const [issuesStatus, setStatusIssue] = useState(null)
 
     useEffect(() => {
-        axios.get('/subject/status')
+        StatusController.getAllStatus()
             .then(res => {
                 setStatus(res.data?.status);
             }).catch(err => {
@@ -55,16 +56,16 @@ const CreateNewSubject = ({setReloadSubject}) => {
                 toast.error('Name is required');
                 error = true;
             }
+            
             if (!subject.code) {
                 toast.error('Code is required');
                 error = true;
             }
+
             if(error){
                 return;
             }
-            const data = await axios.post('/subject/create',{
-                ...subject
-            });
+            const data = await SubjectController.handleCreateNewSubject(subject);
             toast.success(data.data.message);
             nameRef.current.value = '';
             codeRef.current.value = '';

@@ -2,8 +2,9 @@ import React, { useRef, useState } from 'react'
 import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import UpdateIssue from './UpdateIssue';
+import SubjectController from '../../../controller/admin/SubjectController';
+import StatusController from '../../../controller/common/StatusController';
 
 const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const [createIssue, setCreateIssue] = useState(false);
@@ -33,7 +34,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
 
     useEffect(() => {
         if (updateSubject) {
-            axios.get(`/subject/${updateSubject?.id}`)
+            SubjectController.handleGetSubject(updateSubject?.id)
                 .then(res => {
                     const subject = res.data?.subject[0];
                     nameRef.current.value = subject.name;
@@ -47,7 +48,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                 .catch(err => {
                     toast.error(err?.message);
                 })
-            axios.get('/subject/status')
+            StatusController.getAllStatus()
                 .then(res => {
                     setStatus(res.data?.status);
                 }).catch(err => {
@@ -100,9 +101,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
             if (error) {
                 return;
             }
-            const data = await axios.put(`/subject/${subject?.id}`, {
-                ...tempSubject
-            });
+            const data = await SubjectController.handleUpdateSubject(subject?.id,tempSubject);
             toast.success(data.data.message);
             setReloadSubject(pre => !pre);
         }

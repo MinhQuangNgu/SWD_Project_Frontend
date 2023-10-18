@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Label from '../label/Label';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import StatusController from '../../../controller/common/StatusController';
+import LabelController from '../../../controller/common/LabelController';
 const CreateNewIssue = ({ setCreate, setIssues }) => {
     const [label, setLabel] = useState(false);
 
@@ -17,7 +19,7 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
     const [statusIssue,setStatusIssue] = useState(null);
 
     useEffect(() => {
-        axios.get('/subject/label')
+        LabelController.handleGetAllLabels()
             .then(res => {
                 setLabels(res.data?.results);
             })
@@ -27,7 +29,7 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
     }, [reloadIssue]);
 
     useEffect(() => {
-        axios.get('/subject/status')
+        StatusController.getAllStatus()
             .then(res => {
                 setStatus(res.data?.status);
             }).catch(err => {
