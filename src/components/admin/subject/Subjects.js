@@ -3,6 +3,8 @@ import UpdateSubject from './UpdateSubject';
 import CreateNewSubject from './CreateNewSubject';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Label from '../label/Label';
+import LabelList from '../label/LabelList';
 
 const Subjects = () => {
     const [type, setType] = useState('list');
@@ -57,10 +59,13 @@ const Subjects = () => {
             <div className='d-flex btn_subject_manager'>
                 <button onClick={() => {
                     setType('list');
-                }} className={`${type === 'list' ? 'active' : ''}`}>VIew List</button>
+                }} className={`${type === 'list' ? 'active' : ''}`}>View subject List</button>
                 <button onClick={() => {
                     setType('create');
                 }} className={`${type === 'create' ? 'active' : ''}`}>Create New Subject</button>
+                <button onClick={() => {
+                    setType('label');
+                }} className={`${type === 'label' ? 'active' : ''}`}>Label List</button>
                 <button onClick={() => {
                     setType('update');
                 }} style={updateSubject ? {
@@ -155,6 +160,7 @@ const Subjects = () => {
             </section>}
             {type === 'create' && <CreateNewSubject setReloadSubject={setReload}/>}
             {type === 'update' && <UpdateSubject updateSubject={updateSubject} setReloadSubject={setReload}/>}
+            {type === 'label' && <LabelList />}
         </div>
     )
 }
