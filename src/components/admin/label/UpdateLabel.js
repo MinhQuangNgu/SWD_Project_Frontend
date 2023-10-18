@@ -26,7 +26,7 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
                 description: descriptionRef.current.value,
                 color:colorRef.current.value
             });
-            toast.success(data.data.messege);
+            toast.success(data?.data.message);
             setReload(pre => !pre);
         }
         catch(err){

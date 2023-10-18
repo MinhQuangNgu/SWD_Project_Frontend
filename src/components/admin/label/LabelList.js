@@ -33,7 +33,7 @@ const LabelList = () => {
             setReload(pre => !pre);
         }
         catch (err) {
-            toast.error("Label was used by some issues!");
+            toast.error("Label was used by some issues");
         }
     }
     return (
@@ -43,7 +43,7 @@ const LabelList = () => {
                     setCreateLabel(true);
                 }} style={{ fontSize: "12px" }} className='btn btn-primary'>Create New Label</button>
             </div>
-            <div style={{margin:"0 20px"}} className='label_table'>
+            <div style={{margin:"0 20px",marginBottom:"20px"}}>
                 <section className="intro w-100">
                     <div className="gradient-custom-1">
                         <div className="mask d-flex align-items-center h-100">
