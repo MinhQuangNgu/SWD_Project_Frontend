@@ -204,7 +204,7 @@ const Subjects = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="status border-bottom-0-custom"><span className={item?.status_name === 'Active' ? 'active' : 'inactive'}>{item?.status_name}</span></td>
+                                            <td className="status border-bottom-0-custom"><span className={item?.status_name === 'ACTIVE' ? 'active' : 'inactive'}>{item?.status_name}</span></td>
                                             <td className="border-bottom-0-custom">
                                                 <button onClick={() => {
                                                     setType('update');

@@ -7,6 +7,8 @@ import SubjectController from '../../../controller/SubjectController';
 import StatusController from '../../../controller/StatusController';
 import UserController from '../../../controller/UserController';
 import Select from 'react-select';
+import Label from '../label/Label';
+import LabelList from '../label/LabelList';
 const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const [createIssue, setCreateIssue] = useState(false);
     const [updateIssue, setUpdateIssue] = useState(false);
@@ -17,22 +19,21 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const nameRef = useRef();
     const codeRef = useRef();
     const descriptionRef = useRef();
-    const syllabusRef = useRef();
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
-    const [issues, setIssues] = useState([]);
+    const [labels, setlabels] = useState([]);
     const [tempIssues, setTempIssues] = useState([]);
 
-    const handleRemoveIssues = (index) => {
-        const issueTemp = issues;
-        issueTemp.splice(index, 1);
-        setIssues([...issueTemp]);
-    }
+    const [error, setError] = useState({})
 
-    const [status, setStatus] = useState([]);
+    const handleRemoveIssues = (index) => {
+        const issueTemp = labels;
+        issueTemp.splice(index, 1);
+        setlabels([...issueTemp]);
+    }
     const [managers, setManagers] = useState([]);
     const [managerid, setManagerId] = useState({});
-    const [issuesStatus, setStatusIssue] = useState(null)
+    const [issuesStatus, setStatusIssue] = useState(1)
 
 
     useEffect(() => {
@@ -43,7 +44,6 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     nameRef.current.value = subject.name;
                     codeRef.current.value = subject.code
                     descriptionRef.current.value = subject.description;
-                    syllabusRef.current.value = subject.syllabus;
                     gitlabConfigRef.current.value = subject.gitlab_config;
                     setTempIssues(res.data?.issues);
                     setSubject(subject);
@@ -55,13 +55,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
         }
     }, [updateSubject]);
     useEffect(() => {
-        if(subject?.code){
-            StatusController.getAllStatus()
-                .then(res => {
-                    setStatus(res.data?.status);
-                }).catch(err => {
-                    toast.error(err?.message);
-                })
+        if (subject?.code) {
             UserController.getAllManager()
                 .then(res => {
                     const data = res.data?.managers?.map(item => {
@@ -76,22 +70,22 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     managerRef.current = data[0];
                 })
         }
-    },[subject]);
+    }, [subject]);
 
-    useEffect(() => {
-        if (tempIssues && status) {
-            let temp = tempIssues;
-            temp = temp.map(item => {
-                let tempStatus = status.filter(i => i.id == item.status_id);
-                return {
-                    ...item,
-                    status: tempStatus[0],
-                    label: item?.type_id
-                }
-            });
-            setIssues([...temp]);
-        }
-    }, [tempIssues, status]);
+    // useEffect(() => {
+    //     if (tempIssues && status) {
+    //         let temp = tempIssues;
+    //         temp = temp.map(item => {
+    //             let tempStatus = status.filter(i => i.id == item.status_id);
+    //             return {
+    //                 ...item,
+    //                 status: tempStatus[0],
+    //                 label: item?.type_id
+    //             }
+    //         });
+    //         setIssues([...temp]);
+    //     }
+    // }, [tempIssues, status]);
 
     const handleUpdateSubject = async () => {
         try {
@@ -99,24 +93,33 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                 name: nameRef.current.value,
                 code: codeRef.current.value,
                 description: descriptionRef.current.value,
-                syllabus: syllabusRef.current.value,
                 gitlab_config: gitlabConfigRef.current.value,
                 manager_id: managerid?.value || null,
-                status: issuesStatus || status[status.length - 1],
-                issues: issues
+                status: issuesStatus,
+                labels: labels
             };
 
             let error = false;
+            let err = {};
 
             if (!tempSubject.name) {
-                toast.error('Name is required');
+                err = {
+                    ...err,
+                    name: "Name is required"
+                }
                 error = true;
             }
+
             if (!tempSubject.code) {
-                toast.error('Code is required');
+                err = {
+                    ...err,
+                    code: "Code is required"
+                }
                 error = true;
             }
+
             if (error) {
+                setError(err);
                 return;
             }
             const data = await SubjectController.handleUpdateSubject(subject?.id, tempSubject);
@@ -128,15 +131,14 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
         }
     };
 
+    const handleDeleteLabel = () => {
 
-
-    const handleChangeStatus = (index) => {
-        const issueTemp = issues;
-        const newStatusString = issueTemp[index]?.status?.name === 'Active' ? 'Inactive' : 'Active';
-        const newStatus = status.filter(item => item.name == newStatusString);
-        issueTemp[index].status = newStatus[0];
-        setIssues([...issueTemp]);
     }
+
+    const setUpdateLabel = () => {
+
+    }
+
     return (
         <div style={{ marginBottom: '50px' }} className='subject_create'>
             <div className='d-flex justify-content-center subject_c_title'>
@@ -148,22 +150,18 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                         <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                         <div className="col-sm-6">
                             <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                            {error?.name && <span style={{ color: "red" }}><i>* Name is required</i></span>}
                         </div>
                         <label htmlFor="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
                         <div className="col-sm-3">
                             <input ref={codeRef} type="text" className="form-control" id="inputEmail3" placeholder="Code" />
+                            {error?.code && <span style={{ color: "red" }}><i>* Code is required</i></span>}
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
                             <textarea ref={descriptionRef} type="text" className="form-control" id="description" placeholder="Description" />
-                        </div>
-                    </div>
-                    <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="Syllabus" className="col-sm-2 col-form-label">Syllabus:</label>
-                        <div className="col-sm-10">
-                            <textarea ref={syllabusRef} type="text" className="form-control" id="Syllabus" placeholder="Syllabus" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
@@ -186,11 +184,11 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="inputState" className="col-sm-2 col-form-label">Issues:</label>
+                        <label htmlFor="inputState" className="col-sm-2 col-form-label">Issues Setting:</label>
                         <div className="col-sm-10 d-flex flex-wrap">
-                            <button onClick={() => {
-                                setCreateIssue(true);
-                            }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>Add New</button>
+                        <button onClick={() => {
+                                setIssuesExpand(pre => !pre);
+                            }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>Add new</button>
                             <button onClick={() => {
                                 setIssuesExpand(pre => !pre);
                             }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>{issueExpand ? "Hide" : "Expands"}</button>
@@ -204,36 +202,30 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                                                         <table className="table mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th style={{ width: "5%" }} scope="col">Label</th>
-                                                                    <th style={{ width: "12%" }} scope="col">Title</th>
+                                                                    <th style={{ width: "4%" }} scope="col">ID</th>
+                                                                    <th style={{ width: "10%" }} scope="col">Name</th>
                                                                     <th scope="col">Description</th>
-                                                                    <th scope="col">Status</th>
+                                                                    <th style={{ width: "15%" }} scope="col">Color</th>
                                                                     <th scope="col">Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {issues?.map((item, index) => (
+                                                                {labels?.map(item => (
                                                                     <tr>
-                                                                        <th>{item?.label}</th>
-                                                                        <td>{item?.title}</td>
+                                                                        <th scope="row" style={{ color: "#666666" }}>{item.id}</th>
+                                                                        <td>{item.name}</td>
                                                                         <td>
-                                                                            {item?.description}
+                                                                            <p>{item.description}</p>
                                                                         </td>
-                                                                        <td>{item?.status?.name}</td>
-                                                                        <td style={{ width: '30%' }}>
+                                                                        <td>
+                                                                            <input type='color' defaultValue={item?.color} disabled />
+                                                                        </td>
+                                                                        <td style={{ width: '20%' }}>
                                                                             <div className='d-flex'>
+                                                                                <button onClick={() => { handleDeleteLabel(item.id) }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
                                                                                 <button onClick={() => {
-                                                                                    handleRemoveIssues(index);
-                                                                                }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
-                                                                                <button onClick={() => {
-                                                                                    setUpdateIssue({
-                                                                                        item,
-                                                                                        id: index
-                                                                                    });
+                                                                                    setUpdateLabel(item);
                                                                                 }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
-                                                                                <button onClick={() => {
-                                                                                    handleChangeStatus(index);
-                                                                                }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-secondary'>Deactive/active</button>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -253,16 +245,26 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
-                                {status?.map((item, index) => <div key={index + "issues"} style={{ marginRight: "10px" }} className="form-check">
+                                <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(item);
+                                            setStatusIssue(1);
                                         }
-                                    }} className="form-check-input" defaultChecked={subject?.status_id == item?.id} type="radio" name="subjectStatus" id={item?.id + "newSubject"} value={item?.id} />
-                                    <label className="form-check-label" htmlFor={item?.id + "newSubject"}>
-                                        {item?.name}
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="activeupdatesubject" value={1} defaultChecked />
+                                    <label className="form-check-label" htmlFor="activeupdatesubject">
+                                        Active
                                     </label>
-                                </div>)}
+                                </div>
+                                <div style={{ marginRight: "10px" }} className="form-check">
+                                    <input onClick={(e) => {
+                                        if (e.target.checked) {
+                                            setStatusIssue(2);
+                                        }
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactiveupdatesubject" value={2} />
+                                    <label className="form-check-label" htmlFor="inactiveupdatesubject">
+                                        Inactive
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -273,8 +275,6 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     </div>
                 </div>
             </div>
-            {createIssue && <CreateNewIssue setCreate={setCreateIssue} setIssues={setIssues} />}
-            {updateIssue && <UpdateIssue setUpdate={setUpdateIssue} setIssues={setIssues} updateIssue={updateIssue} issues={issues} />}
         </div>
     )
 }

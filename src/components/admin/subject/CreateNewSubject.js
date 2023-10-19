@@ -15,12 +15,13 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     const nameRef = useRef();
     const codeRef = useRef();
     const descriptionRef = useRef();
-    const syllabusRef = useRef();
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [issues, setIssues] = useState([]);
     const [managers, setManagers] = useState([])
-    const [manager_id,setManagerId] = useState({});
+    const [manager_id, setManagerId] = useState({});
+    
+    const [error,setError] = useState({})
 
     const handleRemoveIssues = (index) => {
         const issueTemp = issues;
@@ -29,15 +30,9 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     }
 
     const [status, setStatus] = useState([]);
-    const [issuesStatus, setStatusIssue] = useState(null)
+    const [issuesStatus, setStatusIssue] = useState(1)
 
     useEffect(() => {
-        StatusController.getAllStatus()
-            .then(res => {
-                setStatus(res.data?.status);
-            }).catch(err => {
-                toast.error(err?.message);
-            })
         UserController.getAllManager()
             .then(res => {
                 const data = res.data?.managers?.map(item => {
@@ -57,26 +52,32 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                 name: nameRef.current.value,
                 code: codeRef.current.value,
                 description: descriptionRef.current.value,
-                syllabus: syllabusRef.current.value,
                 gitlab_config: gitlabConfigRef.current.value,
-                manager_id: manager_id?.value|| null,
-                status: issuesStatus || status[status.length - 1],
-                issues: issues
+                manager_id: manager_id?.value || null,
+                status: issuesStatus
             };
 
             let error = false;
+            let err = {};
 
             if (!subject.name) {
-                toast.error('Name is required');
+                err = {
+                    ...err,
+                    name:"Name is required"
+                }
                 error = true;
             }
 
             if (!subject.code) {
-                toast.error('Code is required');
+                err = {
+                    ...err,
+                    code:"Code is required"
+                }
                 error = true;
             }
 
             if (error) {
+                setError(err);
                 return;
             }
             const data = await SubjectController.handleCreateNewSubject(subject);
@@ -84,7 +85,6 @@ const CreateNewSubject = ({ setReloadSubject }) => {
             nameRef.current.value = '';
             codeRef.current.value = '';
             descriptionRef.current.value = '';
-            syllabusRef.current.value = '';
             gitlabConfigRef.current.value = '';
             setIssues([]);
             setReloadSubject(pre => !pre);
@@ -114,22 +114,18 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                         <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                         <div className="col-sm-6">
                             <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                            {error?.name && <span style={{color:"red"}}><i>* Name is required</i></span>}
                         </div>
                         <label htmlFor="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
                         <div className="col-sm-3">
                             <input ref={codeRef} type="text" className="form-control" id="inputEmail3" placeholder="Code" />
+                            {error?.code && <span style={{color:"red"}}><i>* Code is required</i></span>}
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                         <div className="col-sm-10">
                             <textarea ref={descriptionRef} type="text" className="form-control" id="description" placeholder="Description" />
-                        </div>
-                    </div>
-                    <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="Syllabus" className="col-sm-2 col-form-label">Syllabus:</label>
-                        <div className="col-sm-10">
-                            <textarea ref={syllabusRef} type="text" className="form-control" id="Syllabus" placeholder="Syllabus" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
@@ -216,16 +212,26 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
-                                {status?.map((item, index) => <div key={index + "issues"} style={{ marginRight: "10px" }} className="form-check">
+                                <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(item);
+                                            setStatusIssue(1);
                                         }
-                                    }} className="form-check-input" type="radio" name="subjectStatus" id={item?.id + "newSubject"} value={item?.id} defaultChecked />
-                                    <label className="form-check-label" htmlFor={item?.id + "newSubject"}>
-                                        {item?.name}
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="activenewsubject" value={1} defaultChecked />
+                                    <label className="form-check-label" htmlFor="activenewsubject">
+                                        Active
                                     </label>
-                                </div>)}
+                                </div>
+                                <div style={{ marginRight: "10px" }} className="form-check">
+                                    <input onClick={(e) => {
+                                        if (e.target.checked) {
+                                            setStatusIssue(2);
+                                        }
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactivenewsubject" value={2} />
+                                    <label className="form-check-label" htmlFor="inactivenewsubject">
+                                        Inactive
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
