@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify';
 import LabelController from '../../../controller/LabelController';
 
@@ -7,6 +7,8 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
     const namRef = useRef();
     const descriptionRef = useRef();
     const colorRef = useRef();
+
+    const [error,setError] = useState({});
 
     useEffect(() => {
         if(updateLabel){
@@ -19,7 +21,9 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
     const handleUpdateLabel = async () => {
         try{
             if(!namRef.current.value){
-                return toast.error("Name can not be blank");
+                return setError({
+                    name:"Name is required!"
+                })
             }
             const data = await LabelController.handleUpdateLabel(updateLabel?.id,{
                 name:namRef.current.value,
@@ -30,7 +34,7 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
             setReload(pre => !pre);
         }
         catch(err){
-            toast.error(err.message);
+            toast.error(err?.message);
         }
     }
   return (
@@ -48,6 +52,7 @@ const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
                     <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
                     <div className="col-sm-10">
                         <input ref={namRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                        {error?.name && <span style={{ color: "red" }}><i>* Name is required</i></span>}
                     </div>
                 </div>
                 <div style={{ margin: "20px 0" }} className="form-group row">

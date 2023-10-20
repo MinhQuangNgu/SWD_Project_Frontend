@@ -13,7 +13,7 @@ const LabelList = () => {
     useEffect(() => {
         LabelController.handleGetAllLabels()
             .then(res => {
-                setLabels(res.data?.results);
+                setLabels(res.data?.issuesSettings);
             })
             .catch(err => {
                 toast.error(err?.message);
@@ -33,16 +33,16 @@ const LabelList = () => {
             setReload(pre => !pre);
         }
         catch (err) {
-            toast.error("Label was used by some issues");
+            toast.error(err?.message);
         }
     }
     return (
-        <div style={{ marginTop: "0px" }} className='ftco-section label_container'>
-            <div style={{ marginTop: "20px", marginLeft: "5px" }}>
+        <div style={{ marginTop: "0px" }} className='ftco-section'>
+            {/* <div style={{ marginTop: "20px", marginLeft: "5px" }}>
                 <button onClick={() => {
                     setCreateLabel(true);
                 }} style={{ fontSize: "12px" }} className='btn btn-primary'>Create New Label</button>
-            </div>
+            </div> */}
             <div style={{margin:"0 20px",marginBottom:"20px"}}>
                 <section className="intro w-100">
                     <div className="gradient-custom-1">
@@ -64,7 +64,7 @@ const LabelList = () => {
                                                 <tbody>
                                                     {labels?.map(item => (
                                                         <tr>
-                                                            <th scope="row" style={{ color: "#666666" }}>{item.id}</th>
+                                                            <th scope="row" style={{ color: "#666666" }}>{item?.id}</th>
                                                             <td>{item.name}</td>
                                                             <td>
                                                                 <p>{item.description}</p>
@@ -74,7 +74,7 @@ const LabelList = () => {
                                                             </td>
                                                             <td style={{ width: '20%' }}>
                                                                 <div className='d-flex'>
-                                                                    <button onClick={() => { handleDeleteLabel(item.id) }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
+                                                                    <button onClick={() => { handleDeleteLabel(item?.id) }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
                                                                     <button onClick={() => {
                                                                         setUpdateLabel(item);
                                                                     }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
