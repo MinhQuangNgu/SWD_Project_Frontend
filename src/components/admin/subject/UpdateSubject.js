@@ -9,9 +9,10 @@ import UserController from '../../../controller/UserController';
 import Select from 'react-select';
 import Label from '../label/Label';
 import LabelList from '../label/LabelList';
+import CreateNewLabel from '../label/CreateNewLabel';
 const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
-    const [createIssue, setCreateIssue] = useState(false);
-    const [updateIssue, setUpdateIssue] = useState(false);
+    const [createIssueSettings, setCreateIssueSettings] = useState(false);
+    const [updateIssueSettings, setUpdateIssueSettings] = useState(false);
     const [issueExpand, setIssuesExpand] = useState(false);
 
     const [subject, setSubject] = useState({});
@@ -22,7 +23,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [labels, setlabels] = useState([]);
-    const [tempIssues, setTempIssues] = useState([]);
+    const [tempIssuesSettings, setTempIssuesSettings] = useState([]);
 
     const [error, setError] = useState({})
 
@@ -45,7 +46,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     codeRef.current.value = subject.code
                     descriptionRef.current.value = subject.description;
                     gitlabConfigRef.current.value = subject.gitlab_config;
-                    setTempIssues(res.data?.issues);
+                    setTempIssuesSettings(res.data?.issues);
                     setSubject(subject);
                 })
                 .catch(err => {
@@ -131,13 +132,89 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
         }
     };
 
-    const handleDeleteLabel = () => {
 
+    const namRef = useRef();
+    const descriptionissueSettingsRef = useRef();
+    const colorRef = useRef();
+
+    const updateIssueSettingsNameRef = useRef();
+    const updateIssueSettingsDescriptionRef = useRef();
+    const updateIssueSettingsColorRef = useRef();
+
+    const handleDeleteLabel = (index) => {
+        let temLabels = [...labels];
+        temLabels.splice(index, 1);
+        setlabels([...temLabels]);
     }
 
-    const setUpdateLabel = () => {
-
+    const setUpdateLabel = (item, index) => {
+        setUpdateIssueSettings({
+            item,
+            index
+        });
     }
+    useEffect(() => {
+        if (updateIssueSettings) {
+            updateIssueSettingsNameRef.current.value = updateIssueSettings?.item?.name;
+            updateIssueSettingsDescriptionRef.current.value = updateIssueSettings?.item?.description;
+            updateIssueSettingsColorRef.current.value = updateIssueSettings?.item?.color;
+        }
+    }, [updateIssueSettings]);
+
+    const [issueSettingError, setIssueSettingError] = useState(false);
+
+    const handleCreateNewLabel = async () => {
+        try {
+            let error = false;
+            if (!namRef.current.value) {
+                error = true;
+            }
+            setIssueSettingError(error);
+            if (error) {
+                return;
+            }
+            const temLabels = [...labels, {
+                name: namRef.current.value,
+                description: descriptionissueSettingsRef.current.value,
+                color: colorRef.current.value
+            }];
+            setlabels(temLabels);
+            toast.success("Create issue Setting successfully!");
+            namRef.current.value = '';
+            descriptionissueSettingsRef.current.value = '';
+            colorRef.current.value = '';
+        }
+        catch (err) {
+            toast.error(err.message);
+        }
+    }
+
+    const [updateIssueSettingsError, setupdateIssueSettingsError] = useState(false);
+
+    const handleUpdateLabel = async () => {
+        try {
+            let error = false;
+            if (!updateIssueSettingsNameRef.current.value) {
+                error = true;
+            }
+            setupdateIssueSettingsError(error);
+            if (error) {
+                return;
+            }
+            const temLabels = [...labels];
+            temLabels[updateIssueSettings?.index] = {
+                name:updateIssueSettingsNameRef.current.value,
+                description:updateIssueSettingsDescriptionRef.current.value,
+                color:updateIssueSettingsColorRef.current.value
+            }
+            setlabels(temLabels);
+            toast.success("Update issue Setting successfully!");
+        }
+        catch (err) {
+            toast.error(err.message);
+        }
+    }
+
 
     return (
         <div style={{ marginBottom: '50px' }} className='subject_create'>
@@ -186,8 +263,8 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     <div style={{ margin: "20px 0" }} className="form-group row">
                         <label htmlFor="inputState" className="col-sm-2 col-form-label">Issues Setting:</label>
                         <div className="col-sm-10 d-flex flex-wrap">
-                        <button onClick={() => {
-                                setIssuesExpand(pre => !pre);
+                            <button onClick={() => {
+                                setCreateIssueSettings(true);
                             }} style={{ height: "35px", marginRight: "5px", fontSize: "11px" }} className='btn btn-primary'>Add new</button>
                             <button onClick={() => {
                                 setIssuesExpand(pre => !pre);
@@ -202,7 +279,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                                                         <table className="table mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th style={{ width: "4%" }} scope="col">ID</th>
+                                                                    <th style={{ width: "4%" }} scope="col">STT</th>
                                                                     <th style={{ width: "10%" }} scope="col">Name</th>
                                                                     <th scope="col">Description</th>
                                                                     <th style={{ width: "15%" }} scope="col">Color</th>
@@ -210,21 +287,21 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {labels?.map(item => (
-                                                                    <tr>
-                                                                        <th scope="row" style={{ color: "#666666" }}>{item.id}</th>
-                                                                        <td>{item.name}</td>
+                                                                {labels?.map((item, index) => (
+                                                                    <tr key={index + "a"}>
+                                                                        <th scope="row" style={{ color: "#666666" }}>{index + 1}</th>
+                                                                        <td>{item?.name}</td>
                                                                         <td>
-                                                                            <p>{item.description}</p>
+                                                                            <p>{item?.description}</p>
                                                                         </td>
                                                                         <td>
                                                                             <input type='color' defaultValue={item?.color} disabled />
                                                                         </td>
                                                                         <td style={{ width: '20%' }}>
                                                                             <div className='d-flex'>
-                                                                                <button onClick={() => { handleDeleteLabel(item.id) }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
+                                                                                <button onClick={() => { handleDeleteLabel(index) }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-danger'>Delete</button>
                                                                                 <button onClick={() => {
-                                                                                    setUpdateLabel(item);
+                                                                                    setUpdateLabel(item, index);
                                                                                 }} style={{ fontSize: "10px", margin: '0 2px' }} className='btn btn-primary'>Update</button>
                                                                             </div>
                                                                         </td>
@@ -275,6 +352,88 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     </div>
                 </div>
             </div>
+            {createIssueSettings &&
+                <div className='label_container'>
+                    <div className='create-new-label'>
+                        <div className='create-label'>
+                            <div className='add_issues_header'>
+                                Create new label
+                            </div>
+                            <div onClick={() => {
+                                setCreateIssueSettings(false);
+                            }} className='add_issues_close'>
+                                &times;
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
+                                <div className="col-sm-10">
+                                    <input ref={namRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                                    {issueSettingError && <span style={{ color: "red" }}><i>* Name is required</i></span>}
+                                </div>
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
+                                <div className="col-sm-10">
+                                    <textarea ref={descriptionissueSettingsRef} style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
+                                </div>
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="color" className="col-sm-2 col-form-label">Color:</label>
+                                <div className="col-sm-4">
+                                    <input ref={colorRef} style={{ height: "40px" }} type="color" className="form-control" id="color" placeholder="Color" />
+                                </div>
+                            </div>
+                            <div style={{ marginTop: '10px' }} className='d-flex justify-content-center'>
+                                <button onClick={handleCreateNewLabel} style={{ fontSize: "14px" }} className='btn btn-primary'>Create New label</button>
+                                <button onClick={() => {
+                                    setCreateIssueSettings(false);
+                                }} style={{ fontSize: "14px", marginLeft: "10px" }} className='btn btn-secondary'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            {updateIssueSettings &&
+                <div className='label_container'>
+                    <div className='create-new-label'>
+                        <div className='create-label'>
+                            <div className='add_issues_header'>
+                                Update label
+                            </div>
+                            <div onClick={() => {
+                                setUpdateIssueSettings(false);
+                            }} className='add_issues_close'>
+                                &times;
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Name*:</label>
+                                <div className="col-sm-10">
+                                    <input ref={updateIssueSettingsNameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
+                                    {updateIssueSettingsError && <span style={{ color: "red" }}><i>* Name is required</i></span>}
+                                </div>
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
+                                <div className="col-sm-10">
+                                    <textarea ref={updateIssueSettingsDescriptionRef} style={{ maxHeight: "50vh" }} type="text" className="form-control" id="description" placeholder="Description" />
+                                </div>
+                            </div>
+                            <div style={{ margin: "20px 0" }} className="form-group row">
+                                <label htmlFor="color" className="col-sm-2 col-form-label">Color:</label>
+                                <div className="col-sm-4">
+                                    <input ref={updateIssueSettingsColorRef} style={{ height: "40px" }} type="color" className="form-control" id="color" placeholder="Color" />
+                                </div>
+                            </div>
+                            <div style={{ marginTop: '10px' }} className='d-flex justify-content-center'>
+                                <button onClick={handleUpdateLabel} style={{ fontSize: "14px" }} className='btn btn-primary'>Update label</button>
+                                <button onClick={() => {
+                                    setUpdateIssueSettings(false);
+                                }} style={{ fontSize: "14px", marginLeft: "10px" }} className='btn btn-secondary'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
