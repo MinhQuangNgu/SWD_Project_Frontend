@@ -23,15 +23,9 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
     const gitlabConfigRef = useRef();
     const managerRef = useRef();
     const [labels, setlabels] = useState([]);
-    const [tempIssuesSettings, setTempIssuesSettings] = useState([]);
 
     const [error, setError] = useState({})
 
-    const handleRemoveIssues = (index) => {
-        const issueTemp = labels;
-        issueTemp.splice(index, 1);
-        setlabels([...issueTemp]);
-    }
     const [managers, setManagers] = useState([]);
     const [managerid, setManagerId] = useState({});
     const [issuesStatus, setStatusIssue] = useState(1)
@@ -46,7 +40,7 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                     codeRef.current.value = subject.code
                     descriptionRef.current.value = subject.description;
                     gitlabConfigRef.current.value = subject.gitlab_config;
-                    setTempIssuesSettings(res.data?.issues);
+                    setlabels(res.data?.issueSettings);
                     setSubject(subject);
                 })
                 .catch(err => {
