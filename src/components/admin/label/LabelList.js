@@ -3,7 +3,7 @@ import CreateNewLabel from './CreateNewLabel';
 import UpdateLabel from './UpdateLabel';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import LabelController from '../../../controller/LabelController';
+import LabelController from '../../../service/LabelService';
 
 const LabelList = () => {
     const [createLabel, setCreateLabel] = useState(false);

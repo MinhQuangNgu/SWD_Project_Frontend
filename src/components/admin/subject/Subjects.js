@@ -4,7 +4,7 @@ import CreateNewSubject from './CreateNewSubject';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LabelList from '../label/LabelList';
-import SubjectController from '../../../controller/SubjectController';
+import SubjectController from '../../../service/SubjectService';
 
 const Subjects = () => {
     const [type, setType] = useState('list');

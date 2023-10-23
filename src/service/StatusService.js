@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-class StatusController {
+class StatusService {
     getAllStatus = async () => {
         try {
             const data = await axios.get('/subject/status')
@@ -19,4 +19,4 @@ class StatusController {
     }
 }
 
-export default new StatusController()
+export default new StatusService()

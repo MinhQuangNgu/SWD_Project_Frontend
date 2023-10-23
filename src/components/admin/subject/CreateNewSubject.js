@@ -3,9 +3,8 @@ import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import UpdateIssue from './UpdateIssue';
-import StatusController from '../../../controller/StatusController';
-import SubjectController from '../../../controller/SubjectController';
-import UserController from '../../../controller/UserController';
+import SubjectController from '../../../service/SubjectService';
+import UserController from '../../../service/UserService';
 import Select from 'react-select';
 const CreateNewSubject = ({ setReloadSubject }) => {
 

@@ -3,7 +3,7 @@ import CreateNewLabel from './CreateNewLabel';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import UpdateLabel from './UpdateLabel';
-import LabelController from '../../../controller/LabelController';
+import LabelController from '../../../service/LabelService';
 
 const Label = ({ setLabel ,setReloadIssue}) => {
 

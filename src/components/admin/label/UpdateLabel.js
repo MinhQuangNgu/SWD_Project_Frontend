@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify';
-import LabelController from '../../../controller/LabelController';
+import LabelController from '../../../service/LabelService';
 
 const UpdateLabel = ({ setUpdateLabel,setReload,updateLabel }) => {
     const namRef = useRef();

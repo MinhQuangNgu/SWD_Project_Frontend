@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class LabelController{
+class LabelService{
     handleGetAllLabels = async () => {
         return axios.get('/issue_setting');
     }
@@ -22,4 +22,4 @@ class LabelController{
     }
 }
 
-export default new LabelController()
+export default new LabelService()

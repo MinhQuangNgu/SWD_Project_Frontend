@@ -1,8 +1,8 @@
 import axios from "axios";
 
-class UserController{
+class UserService{
     getAllManager = async () => {
         return await axios.get('/user/manager');
     }
 }
-export default new UserController();
+export default new UserService();

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-class SubjectController{
+class SubjectService{
     async getSubjectList(){
         try{
             const data = await axios.get('/subject');
@@ -65,4 +65,4 @@ class SubjectController{
     }
 }
 
-export default new SubjectController()
+export default new SubjectService()

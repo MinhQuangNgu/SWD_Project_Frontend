@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { toast } from 'react-toastify';
-import LabelController from '../../../controller/LabelController';
+import LabelController from '../../../service/LabelService';
 
 const CreateNewLabel = ({ setCreateLabel,setReload }) => {
 

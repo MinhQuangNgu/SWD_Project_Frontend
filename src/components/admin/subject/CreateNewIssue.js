@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Label from '../label/Label';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import StatusController from '../../../controller/StatusController';
-import LabelController from '../../../controller/LabelController';
+import StatusController from '../../../service/StatusService';
+import LabelController from '../../../service/LabelService';
 const CreateNewIssue = ({ setCreate, setIssues }) => {
     const [label, setLabel] = useState(false);
 
