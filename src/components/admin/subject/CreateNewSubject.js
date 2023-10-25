@@ -29,7 +29,7 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     }
 
     const [status, setStatus] = useState([]);
-    const [issuesStatus, setStatusIssue] = useState(1)
+    const [issuesStatus, setStatusIssue] = useState(true)
 
     useEffect(() => {
         UserController.getAllManager()
@@ -92,14 +92,6 @@ const CreateNewSubject = ({ setReloadSubject }) => {
             return toast.error(err?.message);
         }
     };
-
-    const handleChangeStatus = (index) => {
-        const issueTemp = issues;
-        const newStatusString = issueTemp[index]?.status?.name === 'Active' ? 'Inactive' : 'Active';
-        const newStatus = status.filter(item => item.name == newStatusString);
-        issueTemp[index].status = newStatus[0];
-        setIssues([...issueTemp]);
-    }
 
 
     return (
@@ -214,9 +206,9 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(1);
+                                            setStatusIssue(true);
                                         }
-                                    }} className="form-check-input" type="radio" name="gridRadios" id="activenewsubject" value={1} defaultChecked />
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="activenewsubject" value={true} defaultChecked />
                                     <label className="form-check-label" htmlFor="activenewsubject">
                                         Active
                                     </label>
@@ -224,9 +216,9 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(2);
+                                            setStatusIssue(false);
                                         }
-                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactivenewsubject" value={2} />
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactivenewsubject" value={false} />
                                     <label className="form-check-label" htmlFor="inactivenewsubject">
                                         Inactive
                                     </label>

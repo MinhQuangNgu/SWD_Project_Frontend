@@ -318,9 +318,9 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(1);
+                                            setStatusIssue(true);
                                         }
-                                    }} className="form-check-input" type="radio" name="gridRadios" id="activeupdatesubject" value={1} defaultChecked />
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="activeupdatesubject" value={true} defaultChecked />
                                     <label className="form-check-label" htmlFor="activeupdatesubject">
                                         Active
                                     </label>
@@ -328,9 +328,9 @@ const UpdateSubject = ({ updateSubject, setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(2);
+                                            setStatusIssue(false);
                                         }
-                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactiveupdatesubject" value={2} />
+                                    }} className="form-check-input" type="radio" name="gridRadios" id="inactiveupdatesubject" value={false} />
                                     <label className="form-check-label" htmlFor="inactiveupdatesubject">
                                         Inactive
                                     </label>
