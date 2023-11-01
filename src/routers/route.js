@@ -7,7 +7,7 @@ export const publicRouter = [
 	},
 	{
 		element: Admin,
-		path: "/admin/management/:slug"
+		path: "/admin/management/:slug",
 	}
 ];
 export const adminRouter = [
