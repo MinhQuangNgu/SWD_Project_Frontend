@@ -1,15 +1,11 @@
 import React, { useRef, useState } from 'react'
-import CreateNewIssue from './CreateNewIssue';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import UpdateIssue from './UpdateIssue';
 import SubjectController from '../../../service/SubjectService';
 import UserController from '../../../service/UserService';
 import Select from 'react-select';
 const CreateNewSubject = ({ setReloadSubject }) => {
 
-    const [createIssue, setCreateIssue] = useState(false);
-    const [updateIssue, setUpdateIssue] = useState(false);
 
     const nameRef = useRef();
     const codeRef = useRef();
@@ -22,13 +18,6 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     
     const [error,setError] = useState({})
 
-    const handleRemoveIssues = (index) => {
-        const issueTemp = issues;
-        issueTemp.splice(index, 1);
-        setIssues([...issueTemp]);
-    }
-
-    const [status, setStatus] = useState([]);
     const [issuesStatus, setStatusIssue] = useState(true)
 
     useEffect(() => {
@@ -233,8 +222,6 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                     </div>
                 </div>
             </div>
-            {createIssue && <CreateNewIssue setCreate={setCreateIssue} setIssues={setIssues} />}
-            {updateIssue && <UpdateIssue setUpdate={setUpdateIssue} setIssues={setIssues} updateIssue={updateIssue} issues={issues} />}
         </div>
     )
 }
