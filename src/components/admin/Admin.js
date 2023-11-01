@@ -3,6 +3,7 @@ import './style.scss'
 import { Link, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Subjects from './subject/Subjects'
+import Settings from './setting/Settings'
 
 
 const Admin = () => {
@@ -33,6 +34,7 @@ const Admin = () => {
             <div style={{ minHeight: "50vh" }} className="navbar-nav w-100">
               <Link to="/admin/management/dashboard" className={`nav-item nav-link ${type === 'dashboard' && 'active'}`}><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
               <Link to="/admin/management/subject" className={`nav-item nav-link ${type === 'subject' && 'active'}`}><i className="fa fa-keyboard me-2"></i>Subject</Link>
+              <Link to="/admin/management/setting" className={`nav-item nav-link ${type === 'setting' && 'active'}`}><i className="fa fa-gear me-2"></i>Setting</Link>
             </div>
           </nav>
         </div>
@@ -64,6 +66,7 @@ const Admin = () => {
           </nav>
           {type === 'dashboard' && <Dashboard />}
           {type === 'subject' && <Subjects />}
+          {type === 'setting' && <Settings />}
         </div>
       </div>
       <div href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="fa fa-arrow-up"></i></div>
