@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Label from '../label/Label';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import StatusController from '../../../service/StatusService';
 import LabelController from '../../../service/LabelService';
 const CreateNewIssue = ({ setCreate, setIssues }) => {
     const [label, setLabel] = useState(false);
@@ -16,7 +14,6 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
     const descriptionRef = useRef();
     const labelRef = useRef()
 
-    const [statusIssue,setStatusIssue] = useState(null);
 
     useEffect(() => {
         LabelController.handleGetAllLabels()
@@ -28,22 +25,13 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
             })
     }, [reloadIssue]);
 
-    useEffect(() => {
-        StatusController.getAllStatus()
-            .then(res => {
-                setStatus(res.data?.status);
-            }).catch(err => {
-                toast.error(err?.message);
-            })
-    }, []);
 
     const handleCreateNewIssues = async () => {
         try {
             const issue = {
                 title: nameRef.current.value,
                 description: descriptionRef.current.value,
-                label: labelRef.current.value,
-                status: statusIssue || status[status.length - 1]
+                label: labelRef.current.value
             }
             if (!issue.title) {
                 toast.error("Title is required");
@@ -104,16 +92,7 @@ const CreateNewIssue = ({ setCreate, setIssues }) => {
                         <div style={{ margin: "20px 0" }} className="row">
                             <legend className="col-form-label col-sm-2 pt-0">Status</legend>
                             <div className="col-sm-10 d-flex">
-                                {status?.map((item,index) => <div key={index + "issues"} style={{marginRight:"10px"}} className="form-check">
-                                    <input onClick={(e) => {
-                                        if(e.target.checked) {
-                                            setStatusIssue(item);
-                                        }
-                                    }} className="form-check-input" type="radio" name="gridRadios" id={item?.id} value={item?.id} defaultChecked />
-                                    <label className="form-check-label" htmlFor={item?.id}>
-                                        {item?.name}
-                                    </label>
-                                </div>)}
+                                
                             </div>
                         </div>
                     </fieldset>

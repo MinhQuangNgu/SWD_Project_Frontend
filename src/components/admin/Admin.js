@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Subjects from './subject/Subjects'
 import Classes from './classes'
+import Settings from './setting/Settings'
 
 
 const Admin = () => {
@@ -35,6 +36,7 @@ const Admin = () => {
               <Link to="/admin/management/dashboard" className={`nav-item nav-link ${type === 'dashboard' && 'active'}`}><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
               <Link to="/admin/management/subject" className={`nav-item nav-link ${type === 'subject' && 'active'}`}><i className="fa fa-keyboard me-2"></i>Subject</Link>
               <Link to="/admin/management/classes" className={`nav-item nav-link ${type === 'classes' && 'active'}`}><i class="fa fa-hospital me-2" aria-hidden="true"></i>Classes</Link>
+              <Link to="/admin/management/setting" className={`nav-item nav-link ${type === 'setting' && 'active'}`}><i className="fa fa-gear me-2"></i>Setting</Link>
             </div>
           </nav>
         </div>
@@ -67,6 +69,7 @@ const Admin = () => {
           {type === 'dashboard' && <Dashboard />}
           {type === 'subject' && <Subjects />}
           {type === 'classes' && <Classes />}
+          {type === 'setting' && <Settings />}
         </div>
       </div>
       <div href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top"><i className="fa fa-arrow-up"></i></div>

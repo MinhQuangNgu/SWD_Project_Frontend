@@ -1,54 +1,32 @@
 import React, { useRef, useState } from 'react'
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import SubjectController from '../../../service/SubjectService';
-import UserController from '../../../service/UserService';
-import Select from 'react-select';
-const CreateNewSubject = ({ setReloadSubject }) => {
-
+import SettingController from '../../../service/SettingService';
+const CreateNewSetting = ({ setReloadSetting }) => {
 
     const nameRef = useRef();
-    const codeRef = useRef();
-    const descriptionRef = useRef();
-    const gitlabConfigRef = useRef();
-    const managerRef = useRef();
-    const [issues, setIssues] = useState([]);
-    const [managers, setManagers] = useState([])
-    const [manager_id, setManagerId] = useState({});
+    const roleRef = useRef();
+    const typeRef = useRef();
+    const displayOrderRef = useRef();
     
     const [error,setError] = useState({})
 
-    const [issuesStatus, setStatusIssue] = useState(true)
+    const [status, setStatus] = useState([]);
 
-    useEffect(() => {
-        UserController.getAllManager()
-            .then(res => {
-                const data = res.data?.managers?.map(item => {
-                    return {
-                        value: item?.id,
-                        label: item?.email
-                    }
-                })
-                setManagers(data);
-                setManagerId(data[0]);
-            })
-    }, []);
-
-    const handleCreateNewSubject = async () => {
+    const handleCreateNewSetting = async () => {
         try {
-            const subject = {
+            const setting = {
                 name: nameRef.current.value,
-                code: codeRef.current.value,
-                description: descriptionRef.current.value,
-                gitlab_config: gitlabConfigRef.current.value,
-                manager_id: manager_id?.value || null,
-                status: issuesStatus
+                role: roleRef.current.value,
+                type: typeRef.current.value,
+                display_order: displayOrderRef.current.value,
+                status: status?.value || null
             };
 
             let error = false;
             let err = {};
 
-            if (!subject.name) {
+            if (!setting.name) {
                 err = {
                     ...err,
                     name:"Name is required"
@@ -56,10 +34,10 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                 error = true;
             }
 
-            if (!subject.code) {
+            if (!setting.role) {
                 err = {
                     ...err,
-                    code:"Code is required"
+                    code:"Role is required"
                 }
                 error = true;
             }
@@ -68,14 +46,14 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                 setError(err);
                 return;
             }
-            const data = await SubjectController.handleCreateNewSubject(subject);
+            const data = await SettingController.handleCreateNewSetting(setting);
             toast.success(data.data.message);
             nameRef.current.value = '';
-            codeRef.current.value = '';
-            descriptionRef.current.value = '';
-            gitlabConfigRef.current.value = '';
-            setIssues([]);
-            setReloadSubject(pre => !pre);
+            roleRef.current.value = '';
+            typeRef.current.value = '';
+            displayOrderRef.current.value = '';
+            status.current.value = '';
+            setReloadSetting(pre => !pre);
         }
         catch (err) {
             return toast.error(err?.message);
@@ -86,7 +64,7 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     return (
         <div style={{ marginBottom: '50px' }} className='subject_create'>
             <div className='d-flex justify-content-center subject_c_title'>
-                <h1><i>Create new subject</i></h1>
+                <h1><i>Create new setting</i></h1>
             </div>
             <div>
                 <div>
@@ -96,35 +74,22 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                             <input ref={nameRef} type="text" className="form-control" id="inputEmail3" placeholder="Name" />
                             {error?.name && <span style={{color:"red"}}><i>* Name is required</i></span>}
                         </div>
-                        <label htmlFor="inputEmail3" className="col-sm-1 col-form-label">Code*:</label>
+                        <label htmlFor="inputEmail3" className="col-sm-1 col-form-label">Role*:</label>
                         <div className="col-sm-3">
-                            <input ref={codeRef} type="text" className="form-control" id="inputEmail3" placeholder="Code" />
-                            {error?.code && <span style={{color:"red"}}><i>* Code is required</i></span>}
+                            <input ref={roleRef} type="text" className="form-control" id="inputEmail3" placeholder="Role" />
+                            {error?.code && <span style={{color:"red"}}><i>* Role is required</i></span>}
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
+                        <label htmlFor="description" className="col-sm-2 col-form-label">Type:</label>
                         <div className="col-sm-10">
-                            <textarea ref={descriptionRef} type="text" className="form-control" id="description" placeholder="Description" />
+                            <textarea ref={typeRef} type="text" className="form-control" id="description" placeholder="Type" />
                         </div>
                     </div>
                     <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="Gitlab" className="col-sm-2 col-form-label">Gitlab Config:</label>
+                        <label htmlFor="Gitlab" className="col-sm-2 col-form-label">Dispay Order:</label>
                         <div className="col-sm-10">
-                            <textarea ref={gitlabConfigRef} type="text" className="form-control" id="Gitlab" placeholder="Gitlab Config" />
-                        </div>
-                    </div>
-                    <div style={{ margin: "20px 0" }} className="form-group row">
-                        <label htmlFor="inputState" className="col-sm-2 col-form-label">Manager:</label>
-                        <div className="col-sm-10">
-                            {managers.length > 0 && <Select
-                                className="basic-single"
-                                classNamePrefix="select"
-                                defaultValue={managers[0]}
-                                name="color"
-                                options={managers}
-                                onChange={(e) => setManagerId(e)}
-                            />}
+                            <textarea ref={displayOrderRef} type="text" className="form-control" id="Gitlab" placeholder="Display Order" />
                         </div>
                     </div>
                     {/* <div style={{ margin: "20px 0" }} className="form-group row">
@@ -195,7 +160,7 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(true);
+                                            setStatus(true);
                                         }
                                     }} className="form-check-input" type="radio" name="gridRadios" id="activenewsubject" value={true} defaultChecked />
                                     <label className="form-check-label" htmlFor="activenewsubject">
@@ -205,7 +170,7 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                                 <div style={{ marginRight: "10px" }} className="form-check">
                                     <input onClick={(e) => {
                                         if (e.target.checked) {
-                                            setStatusIssue(false);
+                                            setStatus(false);
                                         }
                                     }} className="form-check-input" type="radio" name="gridRadios" id="inactivenewsubject" value={false} />
                                     <label className="form-check-label" htmlFor="inactivenewsubject">
@@ -217,7 +182,7 @@ const CreateNewSubject = ({ setReloadSubject }) => {
                     </fieldset>
                     <div className="form-group row">
                         <div className="col-sm-12 d-flex justify-content-center">
-                            <button onClick={handleCreateNewSubject} type="submit" className="btn btn-primary">Create new subject</button>
+                            <button onClick={handleCreateNewSetting} type="submit" className="btn btn-primary">Create new setting</button>
                         </div>
                     </div>
                 </div>
@@ -226,4 +191,4 @@ const CreateNewSubject = ({ setReloadSubject }) => {
     )
 }
 
-export default CreateNewSubject
+export default CreateNewSetting
