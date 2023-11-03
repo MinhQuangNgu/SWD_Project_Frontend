@@ -53,15 +53,15 @@ const Projects = () => {
     //         })
     //     }
     // }
-    // const handleSetStatus = (id) => {
-    //     SubjectController.handleSetStatus(id)
-    //         .then(res => {
-    //             toast.success(res?.data?.message);
-    //             setReload(pre => !pre);
-    //         }).catch(err => {
-    //             toast.error(err?.message);
-    //         })
-    // }
+    const handleSetStatus = (id) => {
+        ProjectService.handleSetStaus(id)
+            .then(res => {
+                toast.success(res?.data?.message);
+                setReload(pre => !pre);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
+    }
 
     return (
         <div style={{ marginTop: "40px" }}>
@@ -270,29 +270,12 @@ const Projects = () => {
                                                     </span>
                                                 </div>
                                             </td>
-                                            {/* <td className="border-bottom-0-custom">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="pl-3 email">
-                                                        <span>
-                                                            {item?.name}
-                                                        </span>
-                                                        <span>Added: {item?.date_create}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="border-bottom-0-custom">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="pl-3 email">
-                                                        <span>
-                                                            {item?.username}
-                                                        </span>
-                                                        <span>{item?.email}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            // <td className="status border-bottom-0-custom"><span className={item?.status ? 'active' : 'inactive'}>{item?.status ? 'ACTIVE' : "INACTIVE"}</span></td> */}
                                                 <td className="status border-bottom-0-custom"><span className={item?.status_id ? 'active' : 'inactive'}>{item?.status ? 'ACTIVE' : "INACTIVE"}</span>
-                                                <i class="fa fa-rotate" style={{marginLeft: 20}}></i>
+                                                <button
+                                                 onClick={() => {
+                                                    handleSetStatus(item?.id)}}
+                                                 className='btn btn-secondary'style={{marginLeft: 20}}><i class="fa fa-rotate" 
+                                                data-toggle="tooltip" data-placement="top" title="Change status"></i></button>
                                                 </td>
                                             
                                             <td className="border-bottom-0-custom">

@@ -28,7 +28,7 @@ const ProjectSideBar = () => {
               </div>
               <div className="ms-3">
                 <h6 className="mb-0">Jhon Doe</h6>
-                <span>Admin</span>
+                <span>Teacher</span>
               </div>
             </div>
             <div style={{ minHeight: "50vh" }} className="navbar-nav w-100">
