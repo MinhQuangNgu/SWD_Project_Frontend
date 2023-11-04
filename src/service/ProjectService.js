@@ -17,6 +17,70 @@ class ProjectService{
             }
         }
     }
+    async getclass(){
+        try{
+            const data = await axios.get('/project/class');
+            
+            return {
+                isSuccess:true,
+                data:data.data
+            };
+        }
+        catch(err){
+            return {
+                isSuccess:false,
+                data:err
+            }
+        }
+    }
+    async getManager(){
+        try{
+            const data = await axios.get('/project/manager');
+            
+            return {
+                isSuccess:true,
+                data:data.data
+            };
+        }
+        catch(err){
+            return {
+                isSuccess:false,
+                data:err
+            }
+        }
+    }
+    async getMileStone(){
+        try{
+            const data = await axios.get('/project/milestone');
+            
+            return {
+                isSuccess:true,
+                data:data.data
+            };
+        }
+        catch(err){
+            return {
+                isSuccess:false,
+                data:err
+            }
+        }
+    }
+    async getStudent(){
+        try{
+            const data = await axios.get('/project/student');
+            
+            return {
+                isSuccess:true,
+                data:data.data
+            };
+        }
+        catch(err){
+            return {
+                isSuccess:false,
+                data:err
+            }
+        }
+    }
     handleSetStaus = async (id) => {
         try {
             const data = await axios.put(`/project/setStatus/${id}`);

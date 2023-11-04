@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 // import LabelList from '../label/LabelList';
 // import SubjectController from '../../../service/SubjectService';
 import ProjectService from '../../../service/ProjectService';
+import CreateNewProject from './CreateNewProject';
 const Projects = () => {
     const [type, setType] = useState('list');
 
@@ -298,7 +299,7 @@ const Projects = () => {
                     </div>
                 </div>
             </section>}
-            {/* {type === 'create' && <CreateNewSubject setReloadSubject={setReload} />} */}
+            {type === 'create' && <CreateNewProject/>}
             {/* {type === 'update' && <UpdateSubject updateSubject={updateSubject} setReloadSubject={setReload} />} */}
             {/* {type === 'label' && <LabelList />} */}
         </div>
