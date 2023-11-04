@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import ProjectService from '../../../service/ProjectService';
 
-const CreateNewProject = ({ setReloadSubject }) => {
+const CreateNewProject = ({ setReloadProject }) => {
     const [group_name, setGroupName] = useState();
     const [project_code, setProjectCode] = useState();
     const [project_name, setProjectName] = useState();
@@ -148,10 +148,15 @@ const CreateNewProject = ({ setReloadSubject }) => {
                 return;
             }
 
-            // console.log(project);
-
-            
             console.log(project);
+
+            ProjectService.handeleCreateProject(project)
+            .then(res => {
+                toast.success(res?.data?.message);
+                setReloadProject(pre => !pre);
+            }).catch(err => {
+                toast.error(err?.message);
+            })
             setError()
         } catch (error) {
             console.log("ngu");

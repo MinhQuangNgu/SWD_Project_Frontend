@@ -299,7 +299,7 @@ const Projects = () => {
                     </div>
                 </div>
             </section>}
-            {type === 'create' && <CreateNewProject/>}
+            {type === 'create' && <CreateNewProject setReloadProject={setReload}/>}
             {/* {type === 'update' && <UpdateSubject updateSubject={updateSubject} setReloadSubject={setReload} />} */}
             {/* {type === 'label' && <LabelList />} */}
         </div>

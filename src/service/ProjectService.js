@@ -96,7 +96,11 @@ class ProjectService{
             }
         }
     }
-
+    handeleCreateProject = async (project) => {
+        return await axios.post('/project',{
+            ...project
+        });
+    }
     // handleSetStatus = async (id) => {
     //     try {
     //         const data = await axios.post(`/subject/c_status/${id}`);
