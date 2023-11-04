@@ -81,7 +81,23 @@ class ProjectService{
             }
         }
     }
-    handleSetStaus = async (id) => {
+    async getDetail(id){
+        try{
+            const data = await axios.get(`/project/${id}`);
+            
+            return {
+                isSuccess:true,
+                data:data.data
+            };
+        }
+        catch(err){
+            return {
+                isSuccess:false,
+                data:err
+            }
+        }
+    }
+    handleSetStatus = async (id) => {
         try {
             const data = await axios.put(`/project/setStatus/${id}`);
             return {
@@ -98,6 +114,11 @@ class ProjectService{
     }
     handeleCreateProject = async (project) => {
         return await axios.post('/project',{
+            ...project
+        });
+    }
+    handeleUpdateProject = async (id, project) => {
+        return await axios.put(`/project/${id}`,{
             ...project
         });
     }

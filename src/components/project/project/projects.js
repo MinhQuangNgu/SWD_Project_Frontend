@@ -7,12 +7,13 @@ import { toast } from 'react-toastify';
 // import SubjectController from '../../../service/SubjectService';
 import ProjectService from '../../../service/ProjectService';
 import CreateNewProject from './CreateNewProject';
+import UpdateProject from './UpdateProject';
 const Projects = () => {
     const [type, setType] = useState('list');
 
-    const [subjects, setSubjects] = useState([]);
+    // const [subjects, setSubjects] = useState([]);
 
-    const [updateSubject, setUpdateSubject] = useState(null);
+    const [updateProject, setUpdateProject] = useState(null);
 
     const [reload, setReload] = useState(false);
 
@@ -22,7 +23,7 @@ const Projects = () => {
     const [managerOrder, setManagerOrder] = useState('desc');
     const [status, setStatus] = useState('all');
 
-    const [projects, setProjects] =useState([]);
+    const [projects, setProjects] = useState([]);
     useEffect(() => {
         const data = ProjectService.getProjectList();
         data.then(res => {
@@ -55,7 +56,7 @@ const Projects = () => {
     //     }
     // }
     const handleSetStatus = (id) => {
-        ProjectService.handleSetStaus(id)
+        ProjectService.handleSetStatus(id)
             .then(res => {
                 toast.success(res?.data?.message);
                 setReload(pre => !pre);
@@ -75,15 +76,15 @@ const Projects = () => {
                 }} className={`${type === 'create' ? 'active' : ''}`}>Create New Project</button>
                 <button onClick={() => {
                     setType('update');
-                }} style={updateSubject ? {
+                }} style={updateProject ? {
                     display: "flex"
                 } : {
                     display: "none"
-                }} className={`${type === 'update' ? 'active' : ''}`}>Update Subject ID = {updateSubject?.id}</button>
+                }} className={`${type === 'update' ? 'active' : ''}`}>Update Project : {updateProject?.project_name}</button>
                 <button onClick={() => {
-                    setUpdateSubject(null);
+                    setUpdateProject(null);
                     setType('list');
-                }} style={updateSubject ? {
+                }} style={updateProject ? {
                     display: "flex",
                     marginLeft: "-6px"
                 } : {
@@ -143,7 +144,7 @@ const Projects = () => {
                                                 </div>
                                             </div>
                                         </div></th>
-                                        
+
                                         <th><div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                             Class name
                                             <div style={{ marginLeft: "10px" }}>
@@ -174,7 +175,7 @@ const Projects = () => {
                                                 </div>
                                             </div>
                                         </div></th>
-                                        
+
                                         <th><div style={{ width: "100%", display: "flex", alignItems: "center" }}>
                                             Manager
                                             <div style={{ marginLeft: "10px" }}>
@@ -271,26 +272,22 @@ const Projects = () => {
                                                     </span>
                                                 </div>
                                             </td>
-                                                <td className="status border-bottom-0-custom"><span className={item?.status_id ? 'active' : 'inactive'}>{item?.status ? 'ACTIVE' : "INACTIVE"}</span>
+                                            <td className="status border-bottom-0-custom"><span className={item?.status_id ? 'active' : 'inactive'}>{item?.status ? 'ACTIVE' : "INACTIVE"}</span>
                                                 <button
-                                                 onClick={() => {
-                                                    handleSetStatus(item?.id)}}
-                                                 className='btn btn-secondary'style={{marginLeft: 20}}><i class="fa fa-rotate" 
-                                                data-toggle="tooltip" data-placement="top" title="Change status"></i></button>
-                                                </td>
-                                            
+                                                    onClick={() => {
+                                                        handleSetStatus(item?.id)
+                                                    }}
+                                                    className='btn btn-secondary' style={{ marginLeft: 20 }}><i class="fa fa-rotate"
+                                                        data-toggle="tooltip" data-placement="top" title="Change status"></i></button>
+                                            </td>
+
                                             <td className="border-bottom-0-custom">
                                                 <button onClick={() => {
-                                                    // setType('update');
-                                                    // setUpdateSubject(item);
+                                                     setType('update');
+                                                     setUpdateProject(item);
                                                 }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-primary">
                                                     Update
                                                 </button>
-                                                {/* <button onClick={() => {
-                                                    handleSetStatus(item?.id)
-                                                }} style={{ marginLeft: "5px", height: "30px", fontSize: "12px" }} type="button" className="btn btn-secondary">
-                                                    Active/Deactive
-                                                </button> */}
                                             </td>
                                         </tr>)}
                                 </tbody>
@@ -299,8 +296,8 @@ const Projects = () => {
                     </div>
                 </div>
             </section>}
-            {type === 'create' && <CreateNewProject setReloadProject={setReload}/>}
-            {/* {type === 'update' && <UpdateSubject updateSubject={updateSubject} setReloadSubject={setReload} />} */}
+            {type === 'create' && <CreateNewProject setReloadProject={setReload} />}
+            {type === 'update' && <UpdateProject id={updateProject?.id} setReloadProject={setReload} />}
             {/* {type === 'label' && <LabelList />} */}
         </div>
     )
