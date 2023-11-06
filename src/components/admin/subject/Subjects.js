@@ -11,18 +11,14 @@ const Subjects = () => {
 
     const [subjects, setSubjects] = useState([]);
 
+    const [sortK,setSortK] = useState('');
+
     const [updateSubject, setUpdateSubject] = useState(null);
 
     const [reload, setReload] = useState(false);
 
-    const [idorder, setIdOrder] = useState('desc');
-    const [codeOrder, setCodeOrder] = useState('desc');
-    const [subjectOrder, setSubjectOrder] = useState('desc');
-    const [managerOrder, setManagerOrder] = useState('desc');
-    const [status, setStatus] = useState('all');
-
     useEffect(() => {
-        const data = SubjectController.getSubjectList();
+        const data = SubjectController.getSubjectList('id-asc');
         data.then(res => {
             setSubjects(res.data?.subjects);
         })
@@ -50,6 +46,17 @@ const Subjects = () => {
             }).catch(err => {
                 toast.error(err?.message);
             })
+    }
+
+    const hanldeSort = async (k,v) => {
+        setSortK(k + v);
+        try{
+            const data = await SubjectController.getSubjectList(k + "-" + v);
+            setSubjects(data.data?.subjects);
+        }
+        catch(err){
+            console.log(err);
+        }
     }
 
     return (
@@ -93,12 +100,12 @@ const Subjects = () => {
                                             ID
                                             <div style={{ marginLeft: "10px" }}>
                                                 <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "idasc" ? {color:"red"} : {}} onClick={() => hanldeSort("id","asc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>
                                                 </div>
                                                 <div style={{ height: '18px', cursor: "pointer" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "iddesc" ? {color:"red"} : {}} onClick={() => hanldeSort("id","desc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                                     </svg>
                                                 </div>
@@ -108,12 +115,12 @@ const Subjects = () => {
                                             Code
                                             <div style={{ marginLeft: "10px" }}>
                                                 <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "codeasc" ? {color:"red"} : {}} onClick={() => hanldeSort("code","asc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>
                                                 </div>
                                                 <div style={{ height: '18px', cursor: "pointer" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "codedesc" ? {color:"red"} : {}} onClick={() => hanldeSort("code","desc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                                     </svg>
                                                 </div>
@@ -124,12 +131,12 @@ const Subjects = () => {
                                                 Subject Name
                                                 <div style={{ marginLeft: "10px" }}>
                                                     <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                        <svg style={sortK === "nameasc" ? {color:"red"} : {}} onClick={() => hanldeSort("name","asc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                         </svg>
                                                     </div>
                                                     <div style={{ height: '18px', cursor: "pointer" }}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                        <svg style={sortK === "namedesc" ? {color:"red"} : {}} onClick={() => hanldeSort("name","desc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                                         </svg>
                                                     </div>
@@ -141,12 +148,12 @@ const Subjects = () => {
                                                 Manager
                                                 <div style={{ marginLeft: "10px" }}>
                                                     <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                        <svg style={sortK === "manager_idasc" ? {color:"red"} : {}} onClick={() => hanldeSort("manager_id","asc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                         </svg>
                                                     </div>
                                                     <div style={{ height: '18px', cursor: "pointer" }}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                        <svg style={sortK === "manager_iddesc" ? {color:"red"} : {}} onClick={() => hanldeSort("manager_id","desc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                                         </svg>
                                                     </div>
@@ -157,12 +164,12 @@ const Subjects = () => {
                                             Status
                                             <div style={{ marginLeft: "10px" }}>
                                                 <div style={{ height: '10px', cursor: "pointer", marginBottom: "3px" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "statusasc" ? {color:"red"} : {}} onClick={() => hanldeSort("status","asc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                                                     </svg>
                                                 </div>
                                                 <div style={{ height: '18px', cursor: "pointer" }}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                    <svg style={sortK === "statusdesc" ? {color:"red"} : {}} onClick={() => hanldeSort("status","desc")} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                                     </svg>
                                                 </div>
