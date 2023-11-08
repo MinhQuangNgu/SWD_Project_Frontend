@@ -1,9 +1,9 @@
 import axios from "axios"
 
 class SubjectService{
-    async getSubjectList(queryString){
+    async getSubjectList(queryString,searchValue){
         try{
-            const data = await axios.get(`/subject?sort=${queryString}`);
+            const data = await axios.get(`/subject?sort=${queryString}&search=${searchValue}`);
             return {
                 isSuccess:true,
                 data:data.data

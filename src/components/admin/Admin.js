@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './style.scss'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Subjects from './subject/Subjects'
 import Classes from './classes'
@@ -13,6 +13,9 @@ const Admin = () => {
   useEffect(() => {
     setType(slug);
   }, [slug]);
+
+  const navigate = useNavigate();
+  const btnRef = useRef();
 
   return (
     <>
@@ -45,9 +48,17 @@ const Admin = () => {
             <div style={{marginTop:"10px"}} className="d-none d-md-flex ms-4 align-content-center">
               <div className="input-group">
                 <div className="form-outline">
-                  <input style={{height:"100%"}} placeholder='Tìm kiếm' type="search" id="form1" className="form-control" />
+                  <input ref={btnRef} style={{height:"100%"}} placeholder='Tìm kiếm' type="search" id="form1" className="form-control" />
                 </div>
-                <button style={{height:"35px"}} type="button" className="btn btn-primary">
+                <button onClick={() => {
+                  let value = btnRef.current?.value;
+                  if(!value){
+                    navigate('?');
+                  }
+                  else{
+                    navigate(`?search=${value}`)
+                  }
+                }} style={{height:"35px"}} type="button" className="btn btn-primary">
                   <i className="fas fa-search"></i>
                 </button>
               </div>

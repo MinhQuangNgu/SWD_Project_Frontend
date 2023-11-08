@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import LabelList from '../label/LabelList';
 import SubjectController from '../../../service/SubjectService';
+import { useLocation } from 'react-router-dom';
 
 const Subjects = () => {
     const [type, setType] = useState('list');
@@ -17,15 +18,19 @@ const Subjects = () => {
 
     const [reload, setReload] = useState(false);
 
+    const location = useLocation();
+
+
     useEffect(() => {
-        const data = SubjectController.getSubjectList('id-asc');
+        let searchValue = location?.search?.split("=")[1] || "";
+        const data = SubjectController.getSubjectList('id-asc',searchValue);
         data.then(res => {
             setSubjects(res.data?.subjects);
         })
             .catch(err => {
                 toast.error(err?.message);
             })
-    }, [reload]);
+    }, [reload,location]);
 
     const handleDeleteSubject = (id) => {
         const checked = window.confirm('Are you sure you want to delete this subject');
