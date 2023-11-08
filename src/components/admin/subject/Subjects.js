@@ -22,7 +22,7 @@ const Subjects = () => {
 
 
     useEffect(() => {
-        let searchValue = location?.search?.split("=")[1] || "";
+        let searchValue = location?.search?.split("=")[1] || " ";
         const data = SubjectController.getSubjectList('id-asc',searchValue);
         data.then(res => {
             setSubjects(res.data?.subjects);
